@@ -1,20 +1,35 @@
 import React, { useState } from 'react'
-import { Button } from 'src/components/ui/button';
-import { Card, CardTitle, CardDescription, CardHeader, CardContent, CardFooter } from 'src/components/ui/card';
-import { Edit3, CircleX, Link, Ellipsis, User, Circle, Settings, Lock, Pin, Trash2, ArrowLeftRight } from 'lucide-react';
-import { Input } from 'src/components/ui/input';
+import { Button } from 'src/components/ui/button'
+import { Card, CardTitle, CardDescription, CardHeader, CardContent, CardFooter } from 'src/components/ui/card'
+import { Edit3, CircleX, Link, Ellipsis, User, Circle, Settings, Lock, Pin, Trash2, ArrowLeftRight, Clock } from 'lucide-react'
+import { Input } from 'src/components/ui/input'
+import { Tabs, TabsList, TabsTrigger } from 'src/components/ui/tabs'
 
 const TaskModal = () => {
-    const [isEditing, setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] = useState(false)
 
-    const project = 'Project Name';
+    const project = 'Project Name'
 
-    const title = 'Task Title';
-    const description = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem explicabo blanditiis, incidunt molestias ab, necessitatibus atque cupiditate magnam quam porro vel tempore sed consequuntur adipisci hic, fugit consectetur. Totam, assumenda.';
-    const tags = ['Tag 1', 'Tag 2', 'Tag 3'];
+    const title = 'This is a Task Title'
+    const description = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem explicabo blanditiis, incidunt molestias ab, necessitatibus atque cupiditate magnam quam porro vel tempore sed consequuntur adipisci hic, fugit consectetur. Totam, assumenda.'
 
-    const assignedUsers = ['User 1', 'User 2', 'User 3'];
-    const milestones = ['Milestone 1', 'Milestone 2', 'Milestone 3'];
+    const state = 'Open'
+    const status = 'In Progress'
+    const priority = 'High'
+
+    const tags = ['Tag 1', 'Tag 2', 'Tag 3']
+
+    const timeEstimate = 'Jan 18, 2025'
+    const timeDeadline = 'Jan 19, 2025'
+
+    const assignedUsers = ['User 1', 'User 2', 'User 3']
+    const milestones = ['Next Milestone']
+
+    const notificationServer = "CoderGuys"
+    const notificationChannels = {
+        'Project Discussions': ['Comment'],
+        'Project Updates': ['Change', 'Commit'],
+    }
 
 
     return (
@@ -34,8 +49,8 @@ const TaskModal = () => {
 
                             {!isEditing ?
                                 <div className='group relative'>
-                                    <Button variant='ghost' className='p-2 text-2xl bg-green-600' onClick={() => setIsEditing(!isEditing)}>
-                                        <span>{title}</span> <span className='text-lg'>|</span> <span className='text-sm'>Open</span>
+                                    <Button variant='ghost' className='p-2 text-4xl ml-[-8px]' onClick={() => setIsEditing(!isEditing)}>
+                                        {title}
                                     </Button>
 
                                     <Edit3 size={24} className='absolute right-[-16px] top-[-12px] rounded-full bg-primary transition-all duration-100 opacity-0 group-hover:opacity-100' />
@@ -64,28 +79,59 @@ const TaskModal = () => {
                         </div>
                     </div>
 
-                    {/* HEADER - Description */}
-                    <div className='flex flex-col gap-4 pt-4'>
-                        <CardDescription className=''>{description}</CardDescription>
+                    <div className='flex flex-col gap-4 pt-2'>
+
                         <div className='flex gap-2 '>
+                            {/* State */}
+                            <div className='flex items-center gap-1 w-fit bg-green-600 rounded-md py-1 px-3'><Circle size={16} />{state}</div>
+
+                            {/* Status */}
+                            <div className='flex items-center gap-1 w-fit bg-yellow-600 rounded-md py-1 px-3'><Circle size={16} />{status}</div>
+
+                            {/* Priority */}
+                            <div className='flex items-center gap-1 w-fit bg-red-600 rounded-md py-1 px-3'><Circle size={16} />{priority}</div>
+
+                            {/* Estimate */}
+
+                            {/* Tags */}
                             {tags.map((tag) => (
-                                <div className='w-fit bg-primary rounded-md py-1 px-3'>{tag}</div>
+                                <div className='flex items-center gap-1 w-fit border rounded-md py-1 px-3'><Circle size={16} className='bg-blue-600 rounded-full' />{tag}</div>
                             ))}
 
                             <Button variant='ghost' className='p-2 text-sm'>Add Tag</Button>
                         </div>
+
+                        <CardDescription className=''>{description}</CardDescription>
+
                     </div>
 
                 </CardHeader>
 
                 <hr className='border-b mx-6' />
 
-                <CardContent className='grid grid-cols-[1fr_256px] gap-8 flex-1 h-full py-6'>
+                <CardContent className='grid grid-cols-[1fr_256px] gap-4 flex-1 h-full py-6'>
 
                     {/* Left Side */}
-                    <div className='flex flex-col gap-12'>
+                    <div className='flex flex-col gap-12 pr-4 border-r-2'>
 
-
+                        {/* Filter Tabs */}
+                        <Tabs defaultValue='overview' className='flex flex-col gap-2 w-fit'>
+                            <h3 className='text-lg font-bold'>Recent Activity</h3>
+                            <TabsList>
+                                <TabsTrigger value='overview'>
+                                    <p>Overview</p>
+                                </TabsTrigger>
+                                <TabsTrigger value='comments'>
+                                    <p>Comments (X)</p>
+                                </TabsTrigger>
+                                <TabsTrigger value='attachments'>
+                                    <p>Attachments (X)</p>
+                                </TabsTrigger>
+                                <TabsTrigger value='changes'>
+                                    <p>Changes (X)</p>
+                                </TabsTrigger>
+                            </TabsList>
+                        </Tabs>
 
                         {/* EVENT */}
                         <div className='flex gap-4'>
@@ -111,13 +157,17 @@ const TaskModal = () => {
                             </div>
                         </div>
 
+                        {/* Event for task status change */}
+                        {/* Event for task closure/reopening/completion */}
+                        {/* Event for task locked/unlocked */}
+
                         {/* MILESTONE */}
-                        <div className='flex flex-col gap-2 border p-4 rounded-md bg-primary'>
+                        {/* <div className='flex flex-col gap-2 border p-4 rounded-md bg-primary'>
                             <p className='text-2xl font-bold'>MILESTONE COMPLETED</p>
                             <p>{description}</p>
-                        </div>
+                        </div> */}
 
-                        {/* DISCUSSION */}
+                        {/* COMMENT */}
                         <div className='flex gap-4'>
                             <User size={24} className='bg-primary rounded-full w-full h-full max-w-12 max-h-12' />
                             <div>
@@ -132,9 +182,21 @@ const TaskModal = () => {
                     {/* Right Side */}
                     <div className='flex flex-col gap-4'>
 
+                        {/* Time Estimate */}
+                        <Button variant='ghost' className='flex justify-between items-center gap-2'>
+                            <p className='text-lg font-bold'>Timeline</p>
+                            <Settings className='' />
+                        </Button>
+                        <div className='flex flex-col gap-2 border p-2 rounded-md'>
+                            <div className='w-full rounded-md px-3 flex items-center gap-2'><span className='text-muted-foreground'>Estimated:</span> {timeEstimate}</div>
+                            <div className='w-full rounded-md px-3 flex items-center gap-2'><span className='text-muted-foreground'>Deadline:</span> {timeDeadline}</div>
+                        </div>
+
+                        <hr className='border-b my-4' />
+
                         {/* Assigned Users */}
                         <Button variant='ghost' className='flex justify-between items-center gap-2'>
-                            <p className='text-lg font-bold'>Assigned Users</p>
+                            <p className='text-lg font-bold'>Assignees</p>
                             <Settings className='' />
                         </Button>
                         {assignedUsers.map((user) => (
@@ -155,17 +217,25 @@ const TaskModal = () => {
                         <hr className='border-b my-4' />
 
                         {/* Notifications */}
-                        <Button variant='outline' className='flex justify-between items-center gap-2'>
+                        <Button variant='ghost' className='flex justify-between items-center gap-2'>
                             <p className='text-lg font-bold'>Notifications</p>
                             <Settings className='' />
                         </Button>
+                        <div className='flex flex-col gap-2 border p-2 rounded-md'>
+                            <div className='w-full rounded-md px-3'><span className='text-muted-foreground'>Server:</span> {notificationServer}</div>
+                            <div className='w-full rounded-md px-3'><span className='text-muted-foreground'>Channels:</span> {Object.keys(notificationChannels).join(', ')}</div>
+                            <div className='w-full rounded-md px-3'>
+                                <span className='text-muted-foreground'>Activity: </span>
+                                {Object.values(notificationChannels).flat().join(', ')}
+                            </div>
+                        </div>
 
                         <hr className='border-b my-4' />
 
                         {/* Misc */}
-                        <Button variant='ghost' className='flex justify-start gap-2 text-lg'>
+                        {/* <Button variant='ghost' className='flex justify-start gap-2 text-lg'>
                             <ArrowLeftRight /> Transfer Task
-                        </Button>
+                        </Button> */}
                         <Button variant='ghost' className='flex justify-start gap-2 text-lg'>
                             <Lock /> Lock Conversation
                         </Button>
