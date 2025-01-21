@@ -1,3 +1,5 @@
-export function LandingDashboard() {
-    return <div>Landing Dashboard</div>;
+function LandingDashboard() {
+    return <div>index</div>;
 }
+
+export default LandingDashboard;
