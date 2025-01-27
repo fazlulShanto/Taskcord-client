@@ -1,3 +1,6 @@
+import { DiscordSignIn } from "@/components/common/discord-signin";
+import { Link } from "@tanstack/react-router";
+
 import { motion } from "framer-motion";
 import {
     UsersIcon,
@@ -15,9 +18,13 @@ function LandingPage() {
             <header className="flex justify-between items-center p-6">
                 <h1 className="text-3xl font-bold">Taskcord</h1>
                 <nav>
-                    <a href="#features" className="px-4 hover:text-gray-400">
-                        Features
-                    </a>
+                    <Link
+                        to="/team/$teamId/dashboard"
+                        params={{ teamId: "1234" }}
+                        className="px-4 hover:text-gray-400"
+                    >
+                        Dashboard
+                    </Link>
                     <a href="#about" className="px-4 hover:text-gray-400">
                         About
                     </a>
@@ -46,6 +53,7 @@ function LandingPage() {
                 >
                     Get Started
                 </motion.button>
+                <DiscordSignIn />
             </main>
 
             <section id="features" className="py-20 bg-gray-800">

@@ -13,6 +13,10 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as ProjectProjectIdImport } from './routes/project/$projectId'
+import { Route as ProjectProjectIdIndexImport } from './routes/project/$projectId/index'
+import { Route as ProjectProjectIdTeamSettingsImport } from './routes/project/$projectId/team-settings'
+import { Route as ProjectProjectIdDashboardImport } from './routes/project/$projectId/dashboard'
 
 // Create/Update Routes
 
@@ -26,6 +30,31 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const ProjectProjectIdRoute = ProjectProjectIdImport.update({
+  id: '/project/$projectId',
+  path: '/project/$projectId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProjectProjectIdIndexRoute = ProjectProjectIdIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProjectProjectIdRoute,
+} as any)
+
+const ProjectProjectIdTeamSettingsRoute =
+  ProjectProjectIdTeamSettingsImport.update({
+    id: '/team-settings',
+    path: '/team-settings',
+    getParentRoute: () => ProjectProjectIdRoute,
+  } as any)
+
+const ProjectProjectIdDashboardRoute = ProjectProjectIdDashboardImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => ProjectProjectIdRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -46,44 +75,118 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/project/$projectId': {
+      id: '/project/$projectId'
+      path: '/project/$projectId'
+      fullPath: '/project/$projectId'
+      preLoaderRoute: typeof ProjectProjectIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/project/$projectId/dashboard': {
+      id: '/project/$projectId/dashboard'
+      path: '/dashboard'
+      fullPath: '/project/$projectId/dashboard'
+      preLoaderRoute: typeof ProjectProjectIdDashboardImport
+      parentRoute: typeof ProjectProjectIdImport
+    }
+    '/project/$projectId/team-settings': {
+      id: '/project/$projectId/team-settings'
+      path: '/team-settings'
+      fullPath: '/project/$projectId/team-settings'
+      preLoaderRoute: typeof ProjectProjectIdTeamSettingsImport
+      parentRoute: typeof ProjectProjectIdImport
+    }
+    '/project/$projectId/': {
+      id: '/project/$projectId/'
+      path: '/'
+      fullPath: '/project/$projectId/'
+      preLoaderRoute: typeof ProjectProjectIdIndexImport
+      parentRoute: typeof ProjectProjectIdImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface ProjectProjectIdRouteChildren {
+  ProjectProjectIdDashboardRoute: typeof ProjectProjectIdDashboardRoute
+  ProjectProjectIdTeamSettingsRoute: typeof ProjectProjectIdTeamSettingsRoute
+  ProjectProjectIdIndexRoute: typeof ProjectProjectIdIndexRoute
+}
+
+const ProjectProjectIdRouteChildren: ProjectProjectIdRouteChildren = {
+  ProjectProjectIdDashboardRoute: ProjectProjectIdDashboardRoute,
+  ProjectProjectIdTeamSettingsRoute: ProjectProjectIdTeamSettingsRoute,
+  ProjectProjectIdIndexRoute: ProjectProjectIdIndexRoute,
+}
+
+const ProjectProjectIdRouteWithChildren =
+  ProjectProjectIdRoute._addFileChildren(ProjectProjectIdRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/project/$projectId': typeof ProjectProjectIdRouteWithChildren
+  '/project/$projectId/dashboard': typeof ProjectProjectIdDashboardRoute
+  '/project/$projectId/team-settings': typeof ProjectProjectIdTeamSettingsRoute
+  '/project/$projectId/': typeof ProjectProjectIdIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/project/$projectId/dashboard': typeof ProjectProjectIdDashboardRoute
+  '/project/$projectId/team-settings': typeof ProjectProjectIdTeamSettingsRoute
+  '/project/$projectId': typeof ProjectProjectIdIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/project/$projectId': typeof ProjectProjectIdRouteWithChildren
+  '/project/$projectId/dashboard': typeof ProjectProjectIdDashboardRoute
+  '/project/$projectId/team-settings': typeof ProjectProjectIdTeamSettingsRoute
+  '/project/$projectId/': typeof ProjectProjectIdIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/project/$projectId'
+    | '/project/$projectId/dashboard'
+    | '/project/$projectId/team-settings'
+    | '/project/$projectId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to:
+    | '/'
+    | '/about'
+    | '/project/$projectId/dashboard'
+    | '/project/$projectId/team-settings'
+    | '/project/$projectId'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/project/$projectId'
+    | '/project/$projectId/dashboard'
+    | '/project/$projectId/team-settings'
+    | '/project/$projectId/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ProjectProjectIdRoute: typeof ProjectProjectIdRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ProjectProjectIdRoute: ProjectProjectIdRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -97,7 +200,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about"
+        "/about",
+        "/project/$projectId"
       ]
     },
     "/": {
@@ -105,6 +209,26 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/project/$projectId": {
+      "filePath": "project/$projectId.tsx",
+      "children": [
+        "/project/$projectId/dashboard",
+        "/project/$projectId/team-settings",
+        "/project/$projectId/"
+      ]
+    },
+    "/project/$projectId/dashboard": {
+      "filePath": "project/$projectId/dashboard.tsx",
+      "parent": "/project/$projectId"
+    },
+    "/project/$projectId/team-settings": {
+      "filePath": "project/$projectId/team-settings.tsx",
+      "parent": "/project/$projectId"
+    },
+    "/project/$projectId/": {
+      "filePath": "project/$projectId/index.tsx",
+      "parent": "/project/$projectId"
     }
   }
 }
