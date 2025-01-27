@@ -1,0 +1,40 @@
+{
+  "Typescript default React component": {
+    "scope": "typescriptreact",
+    "prefix": "rfcd",
+    "body": [
+      "import React from 'react';",
+      "",
+      "interface ${TM_FILENAME_BASE}Props {",
+      "}",
+      "",
+      "const ${TM_FILENAME_BASE}: React.FC<${TM_FILENAME_BASE}Props> = ({ $2 }) => {",
+      "  return (",
+      "    <div>",
+      "     ${3:$TM_FILENAME_BASE}",
+      "    </div>",
+      "  )",
+      "}",
+      "",
+      "export default ${TM_FILENAME_BASE};"
+    ],
+  },
+  "Typescript React component": {
+    "scope": "typescriptreact",
+    "prefix": "rfc",
+    "body": [
+      "import { FC } from 'react';",
+      "",
+      "interface ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Props {}",
+      "",
+      "export const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}: FC<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Props> = () => {",
+      "  return (",
+      "    <div>",
+      "      ${1:content}",
+      "    </div>",
+      "  );",
+      "};"
+    ],
+  }
+
+}
