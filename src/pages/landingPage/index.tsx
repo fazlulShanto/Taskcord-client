@@ -16,7 +16,14 @@ function LandingPage() {
             className="bg-gray-900 text-white min-h-screen flex flex-col"
         >
             <header className="flex justify-between items-center p-6">
-                <h1 className="text-3xl font-bold">Taskcord</h1>
+                <div className="flex items-center">
+                    <img
+                        src="/logo_128.png"
+                        alt="Taskcord Logo"
+                        className="pt-1.5 scale-[.75]"
+                    />
+                    <h1 className="text-3xl font-bold">Taskcord</h1>
+                </div>
                 <nav>
                     <Link
                         to="/project/$projectId"

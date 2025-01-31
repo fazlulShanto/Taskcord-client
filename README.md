@@ -1,50 +1,18 @@
-# React + TypeScript + Vite
+# Taskord
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Taskord](./public/logo_128.png)
 
-Currently, two official plugins are available:
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b16c721e-a974-48d9-b49d-7a9c97ba6846/deploy-status)](https://app.netlify.com/sites/p005/deploys)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Core Features
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Project Management
+  - Projects: Each team can manage multiple projects, providing a clear structure for collaboration.
+- Task Management
+  - Task Creation: Users can create tasks under each project, assign them to team members, and set deadlines.
+  - Progress Tracking: Implement features to track the progress of tasks, such as status updates (e.g., not started, in progress, completed).
+  - Reporting: Dashboard to generate reports on task completion rates, project timelines, and team performance.
+- Integrations
+  - Discord: Utilize Discord's API to create a seamless experience where users can manage tasks and projects directly within their Discord server. Bots can be employed to automate notifications and updates.
+  - GitHub: Integrate with GitHub to link tasks to specific commits or pull requests, allowing for better tracking of development work.
+  - Google Calendar/Meetings: Sync tasks and deadlines with Google Calendar to ensure that team members are aware of upcoming deadlines and meetings.
