@@ -19,8 +19,8 @@ function LandingPage() {
                 <h1 className="text-3xl font-bold">Taskcord</h1>
                 <nav>
                     <Link
-                        to="/team/$teamId/dashboard"
-                        params={{ teamId: "1234" }}
+                        to="/project/$projectId"
+                        params={{ projectId: "1234" }}
                         className="px-4 hover:text-gray-400"
                     >
                         Dashboard
