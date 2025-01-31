@@ -5,6 +5,7 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import PageNotFound from "./components/PageNotFound";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 // Create a new router instance
 const router = createRouter({
@@ -26,7 +27,9 @@ if (!rootElement.innerHTML) {
     const root = createRoot(rootElement);
     root.render(
         <StrictMode>
-            <RouterProvider router={router} />
+            <ThemeProvider>
+                <RouterProvider router={router} />
+            </ThemeProvider>
         </StrictMode>
     );
 }
