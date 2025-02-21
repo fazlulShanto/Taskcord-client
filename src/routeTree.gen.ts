@@ -11,6 +11,8 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as PlaygroundImport } from './routes/playground'
+import { Route as OnboardingImport } from './routes/onboarding'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProjectProjectIdImport } from './routes/project/$projectId'
@@ -19,6 +21,18 @@ import { Route as ProjectProjectIdTeamSettingsImport } from './routes/project/$p
 import { Route as ProjectProjectIdDashboardImport } from './routes/project/$projectId/dashboard'
 
 // Create/Update Routes
+
+const PlaygroundRoute = PlaygroundImport.update({
+  id: '/playground',
+  path: '/playground',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const OnboardingRoute = OnboardingImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const AboutRoute = AboutImport.update({
   id: '/about',
@@ -75,6 +89,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingImport
+      parentRoute: typeof rootRoute
+    }
+    '/playground': {
+      id: '/playground'
+      path: '/playground'
+      fullPath: '/playground'
+      preLoaderRoute: typeof PlaygroundImport
+      parentRoute: typeof rootRoute
+    }
     '/project/$projectId': {
       id: '/project/$projectId'
       path: '/project/$projectId'
@@ -126,6 +154,8 @@ const ProjectProjectIdRouteWithChildren =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/onboarding': typeof OnboardingRoute
+  '/playground': typeof PlaygroundRoute
   '/project/$projectId': typeof ProjectProjectIdRouteWithChildren
   '/project/$projectId/dashboard': typeof ProjectProjectIdDashboardRoute
   '/project/$projectId/team-settings': typeof ProjectProjectIdTeamSettingsRoute
@@ -135,6 +165,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/onboarding': typeof OnboardingRoute
+  '/playground': typeof PlaygroundRoute
   '/project/$projectId/dashboard': typeof ProjectProjectIdDashboardRoute
   '/project/$projectId/team-settings': typeof ProjectProjectIdTeamSettingsRoute
   '/project/$projectId': typeof ProjectProjectIdIndexRoute
@@ -144,6 +176,8 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/onboarding': typeof OnboardingRoute
+  '/playground': typeof PlaygroundRoute
   '/project/$projectId': typeof ProjectProjectIdRouteWithChildren
   '/project/$projectId/dashboard': typeof ProjectProjectIdDashboardRoute
   '/project/$projectId/team-settings': typeof ProjectProjectIdTeamSettingsRoute
@@ -155,6 +189,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/onboarding'
+    | '/playground'
     | '/project/$projectId'
     | '/project/$projectId/dashboard'
     | '/project/$projectId/team-settings'
@@ -163,6 +199,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/onboarding'
+    | '/playground'
     | '/project/$projectId/dashboard'
     | '/project/$projectId/team-settings'
     | '/project/$projectId'
@@ -170,6 +208,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/onboarding'
+    | '/playground'
     | '/project/$projectId'
     | '/project/$projectId/dashboard'
     | '/project/$projectId/team-settings'
@@ -180,12 +220,16 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  OnboardingRoute: typeof OnboardingRoute
+  PlaygroundRoute: typeof PlaygroundRoute
   ProjectProjectIdRoute: typeof ProjectProjectIdRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  OnboardingRoute: OnboardingRoute,
+  PlaygroundRoute: PlaygroundRoute,
   ProjectProjectIdRoute: ProjectProjectIdRouteWithChildren,
 }
 
@@ -201,6 +245,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/onboarding",
+        "/playground",
         "/project/$projectId"
       ]
     },
@@ -209,6 +255,12 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/onboarding": {
+      "filePath": "onboarding.tsx"
+    },
+    "/playground": {
+      "filePath": "playground.tsx"
     },
     "/project/$projectId": {
       "filePath": "project/$projectId.tsx",

@@ -1,13 +1,32 @@
-function App() {
-    return (
-        <div>
-            <h1>Vite + React</h1>
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
+import ErrorBoundary from "./components/ErrorBoundary";
+import PageNotFound from "./components/PageNotFound";
+import { ThemeProvider } from "./components/ThemeProvider";
+import "./index.css";
+import { routeTree } from "./routeTree.gen";
+const queryClient = new QueryClient();
 
-            <p className="read-the-docs text-red-500 text-2xl">
-                Click on the Vite and React logos to learn more
-            </p>
-        </div>
-    );
+// Create a new router instance
+const router = createRouter({
+    routeTree,
+    defaultErrorComponent: ErrorBoundary,
+    defaultNotFoundComponent: PageNotFound,
+});
+
+// Register the router instance for type safety
+declare module "@tanstack/react-router" {
+    interface Register {
+        router: typeof router;
+    }
 }
 
-export default App;
+export const App = () => {
+    return (
+        <QueryClientProvider client={queryClient}>
+            <ThemeProvider>
+                <RouterProvider router={router} />
+            </ThemeProvider>
+        </QueryClientProvider>
+    );
+};
