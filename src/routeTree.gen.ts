@@ -13,9 +13,11 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as PlaygroundImport } from './routes/playground'
 import { Route as OnboardingImport } from './routes/onboarding'
+import { Route as AdminImport } from './routes/admin'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProjectProjectIdImport } from './routes/project/$projectId'
+import { Route as AdminClockImport } from './routes/admin/clock'
 import { Route as ProjectProjectIdIndexImport } from './routes/project/$projectId/index'
 import { Route as ProjectProjectIdTeamSettingsImport } from './routes/project/$projectId/team-settings'
 import { Route as ProjectProjectIdDashboardImport } from './routes/project/$projectId/dashboard'
@@ -31,6 +33,12 @@ const PlaygroundRoute = PlaygroundImport.update({
 const OnboardingRoute = OnboardingImport.update({
   id: '/onboarding',
   path: '/onboarding',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AdminRoute = AdminImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -50,6 +58,12 @@ const ProjectProjectIdRoute = ProjectProjectIdImport.update({
   id: '/project/$projectId',
   path: '/project/$projectId',
   getParentRoute: () => rootRoute,
+} as any)
+
+const AdminClockRoute = AdminClockImport.update({
+  id: '/clock',
+  path: '/clock',
+  getParentRoute: () => AdminRoute,
 } as any)
 
 const ProjectProjectIdIndexRoute = ProjectProjectIdIndexImport.update({
@@ -89,6 +103,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminImport
+      parentRoute: typeof rootRoute
+    }
     '/onboarding': {
       id: '/onboarding'
       path: '/onboarding'
@@ -102,6 +123,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/playground'
       preLoaderRoute: typeof PlaygroundImport
       parentRoute: typeof rootRoute
+    }
+    '/admin/clock': {
+      id: '/admin/clock'
+      path: '/clock'
+      fullPath: '/admin/clock'
+      preLoaderRoute: typeof AdminClockImport
+      parentRoute: typeof AdminImport
     }
     '/project/$projectId': {
       id: '/project/$projectId'
@@ -136,6 +164,16 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface AdminRouteChildren {
+  AdminClockRoute: typeof AdminClockRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminClockRoute: AdminClockRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 interface ProjectProjectIdRouteChildren {
   ProjectProjectIdDashboardRoute: typeof ProjectProjectIdDashboardRoute
   ProjectProjectIdTeamSettingsRoute: typeof ProjectProjectIdTeamSettingsRoute
@@ -154,8 +192,10 @@ const ProjectProjectIdRouteWithChildren =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/onboarding': typeof OnboardingRoute
   '/playground': typeof PlaygroundRoute
+  '/admin/clock': typeof AdminClockRoute
   '/project/$projectId': typeof ProjectProjectIdRouteWithChildren
   '/project/$projectId/dashboard': typeof ProjectProjectIdDashboardRoute
   '/project/$projectId/team-settings': typeof ProjectProjectIdTeamSettingsRoute
@@ -165,8 +205,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/onboarding': typeof OnboardingRoute
   '/playground': typeof PlaygroundRoute
+  '/admin/clock': typeof AdminClockRoute
   '/project/$projectId/dashboard': typeof ProjectProjectIdDashboardRoute
   '/project/$projectId/team-settings': typeof ProjectProjectIdTeamSettingsRoute
   '/project/$projectId': typeof ProjectProjectIdIndexRoute
@@ -176,8 +218,10 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/onboarding': typeof OnboardingRoute
   '/playground': typeof PlaygroundRoute
+  '/admin/clock': typeof AdminClockRoute
   '/project/$projectId': typeof ProjectProjectIdRouteWithChildren
   '/project/$projectId/dashboard': typeof ProjectProjectIdDashboardRoute
   '/project/$projectId/team-settings': typeof ProjectProjectIdTeamSettingsRoute
@@ -189,8 +233,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/onboarding'
     | '/playground'
+    | '/admin/clock'
     | '/project/$projectId'
     | '/project/$projectId/dashboard'
     | '/project/$projectId/team-settings'
@@ -199,8 +245,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/admin'
     | '/onboarding'
     | '/playground'
+    | '/admin/clock'
     | '/project/$projectId/dashboard'
     | '/project/$projectId/team-settings'
     | '/project/$projectId'
@@ -208,8 +256,10 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/onboarding'
     | '/playground'
+    | '/admin/clock'
     | '/project/$projectId'
     | '/project/$projectId/dashboard'
     | '/project/$projectId/team-settings'
@@ -220,6 +270,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
   OnboardingRoute: typeof OnboardingRoute
   PlaygroundRoute: typeof PlaygroundRoute
   ProjectProjectIdRoute: typeof ProjectProjectIdRouteWithChildren
@@ -228,6 +279,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
   OnboardingRoute: OnboardingRoute,
   PlaygroundRoute: PlaygroundRoute,
   ProjectProjectIdRoute: ProjectProjectIdRouteWithChildren,
@@ -245,6 +297,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/admin",
         "/onboarding",
         "/playground",
         "/project/$projectId"
@@ -256,11 +309,21 @@ export const routeTree = rootRoute
     "/about": {
       "filePath": "about.tsx"
     },
+    "/admin": {
+      "filePath": "admin.tsx",
+      "children": [
+        "/admin/clock"
+      ]
+    },
     "/onboarding": {
       "filePath": "onboarding.tsx"
     },
     "/playground": {
       "filePath": "playground.tsx"
+    },
+    "/admin/clock": {
+      "filePath": "admin/clock.tsx",
+      "parent": "/admin"
     },
     "/project/$projectId": {
       "filePath": "project/$projectId.tsx",
