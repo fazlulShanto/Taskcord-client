@@ -10,6 +10,7 @@ export const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
     const { isLoading, isAuthenticated } = useAuthQuery();
 
     // TODO: show loading UI
+
     if (isLoading) return <div>Loading...</div>;
 
     // if not authenticated, redirect to login

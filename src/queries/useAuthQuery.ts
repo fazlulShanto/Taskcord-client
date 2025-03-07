@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { APIs } from "../lib/api";
 import { HttpClient } from "@/lib/httpClient";
+import { z } from "zod";
 
 export interface AuthenticatedUser {
     id: string;
@@ -14,6 +15,22 @@ export interface AuthenticatedUser {
     updatedAt: string;
     createdAt: string;
 }
+
+export const AuthSchema = z.object({
+    user: z.object({
+        id: z.string().uuid().min(1),
+        discordId: z.string().min(1),
+        fullName: z.string(),
+        nickName: z.string(),
+        avatar: z.string().min(1),
+        email: z.string().email().optional(),
+        lastAuth: z.string().datetime(),
+        isVerified: z.boolean(),
+        updatedAt: z.string().datetime(),
+        createdAt: z.string().datetime().min(1),
+    }),
+});
+
 export const useAuthQuery = () => {
     const { isError, data, isLoading } = useQuery({
         queryKey: ["auth", "me"],
@@ -24,5 +41,13 @@ export const useAuthQuery = () => {
             return res.data as AuthenticatedUser;
         },
     });
-    return { data, isLoading, isAuthenticated: !isError && !isLoading };
+
+    // if authData is not valid, redirect to login
+    const authData = AuthSchema.safeParse(data);
+
+    return {
+        data: authData.data?.user || null,
+        isLoading,
+        isAuthenticated: !isError && !isLoading && authData.success,
+    };
 };
