@@ -38,6 +38,12 @@ function LandingPage() {
                     <a href="#contact" className="px-4 hover:text-gray-400">
                         Contact
                     </a>
+                    <Link to="/playground" className="px-4 hover:text-gray-400">
+                        Playground
+                    </Link>
+                    <Link to="/onboarding" className="px-4 hover:text-gray-400">
+                        Onboarding
+                    </Link>
                 </nav>
             </header>
 
