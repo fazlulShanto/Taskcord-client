@@ -1,46 +1,47 @@
-import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 
-import { OnboardingStep2 } from "./CreateProject";
+import { ProjectDetails } from "./CreateProject";
 import { ConnectDiscordServer } from "./ConnectDiscordServer";
 import { Stepper } from "@/components/extended-ui/stepper/stepper";
 import { useState } from "react";
 import { ConnectGithub } from "./ConnectGithub";
 import { InviteBot } from "./InviteBot";
 import { AddTeamMember } from "./AddTeamMember";
+
 const steps = [
     {
-        title: "Create Project",
+        title: "Project Informations",
         isDone: false,
         icon: CheckCircle,
-        content: <OnboardingStep2 />,
+        content: ProjectDetails,
     },
     {
         title: "Connect Discord Server",
         isDone: false,
         icon: CheckCircle,
-        content: <ConnectDiscordServer />,
+        content: ConnectDiscordServer,
     },
 
     {
         title: "Connect Github",
         isDone: false,
         icon: CheckCircle,
-        content: <ConnectGithub />,
+        content: ConnectGithub,
     },
     {
         title: "Add Bot to Server",
         isDone: false,
         icon: CheckCircle,
-        content: <InviteBot />,
+        content: InviteBot,
     },
     {
         title: "Invite Team Members",
         isDone: false,
         icon: CheckCircle,
-        content: <AddTeamMember />,
+        content: AddTeamMember,
     },
 ];
+
 export default function OnboardingPage() {
     const [currentStep, setCurrentStep] = useState(1);
     const [stepCompleted, setStepCompleted] = useState(0);
@@ -62,7 +63,13 @@ export default function OnboardingPage() {
     };
 
     const renderStep = () => {
-        return formSteps.find((step) => step.id === currentStep)?.content;
+        const Content = formSteps.find(
+            (step) => step.id === currentStep
+        )?.content;
+        if (!Content) {
+            return null;
+        }
+        return <Content onNext={handleStep} />;
     };
 
     return (
@@ -75,20 +82,7 @@ export default function OnboardingPage() {
                     onStepSelect={setCurrentStep}
                 />
             </div>
-            <div className="flex flex-col gap-4 w-full">
-                {renderStep()}
-                <Button
-                    variant="outline"
-                    className="bg-accent"
-                    onClick={() => handleStep()}
-                >
-                    {currentStep === 1
-                        ? "Start"
-                        : currentStep === formSteps.length
-                        ? "Finish"
-                        : "Continue"}
-                </Button>
-            </div>
+            <div className="flex flex-col gap-4 w-full">{renderStep()}</div>
         </div>
     );
 }

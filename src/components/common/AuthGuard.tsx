@@ -16,8 +16,6 @@ export const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
     // if not authenticated, redirect to login
     if (!isAuthenticated) return <Navigate to="/" />;
 
-    console.log("isAuthenticated", isAuthenticated);
-
     // if authenticated, render children
     return <>{children}</>;
 };
