@@ -24,4 +24,8 @@ export const APIs = {
   discord: {
     guilds: () => `${API_URL}/api/edge/users/discord/guilds`,
   },
+  bot: {
+    botServerVerification: (serverId: string) =>
+      `${API_URL}/api/edge/project/${serverId}/is-bot-in-server`,
+  },
 };

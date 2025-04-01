@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import {
   Command,
   CommandEmpty,
@@ -8,25 +8,37 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
-
 import { cn } from '@/lib/utils';
 import { DiscordAvatar } from '@/components/common/DiscordAvatar';
 import { useProjectCreation } from '@/stores/useProjectCreation';
-import { Loader2, Plus } from 'lucide-react';
-import { useDiscordServerListQuery } from '@/queries/useProjectQuery';
+import {
+  AlertCircle,
+  CheckCheck,
+  ChevronsUpDown,
+  Loader2,
+  Plus,
+  TriangleAlert,
+} from 'lucide-react';
+import {
+  useBotInvitationVerificationQuery,
+  useDiscordServerListQuery,
+} from '@/queries/useProjectQuery';
 import { UserServerData } from './interfaces';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { customToast } from '@/components/ui/sonner';
 
 interface InviteBotProps {
   onNext: () => void;
 }
 
 export const InviteBot: FC<InviteBotProps> = ({ onNext }) => {
-  const { isLoading, isLoadingError, data } = useDiscordServerListQuery();
-  // const discordServerList = useProjectCreation((state) => state.serverList);
   const selectedServer = useProjectCreation((state) => state.selectedServer);
+  const { isLoading, isLoadingError, data } = useDiscordServerListQuery();
+  const [isServerSelectionOpen, setIsServerSelectionOpen] = useState(false);
+  const [isBotInviteVerified, setIsBotInviteVerified] = useState(false);
+  const { isPending, mutateAsync } = useBotInvitationVerificationQuery();
   const updateSelectedServer = useProjectCreation((state) => state.updateSelectedServer);
 
   const hasSelectedServer = selectedServer !== null && selectedServer?.id;
@@ -41,103 +53,26 @@ export const InviteBot: FC<InviteBotProps> = ({ onNext }) => {
     inviteBot(currentServer.id);
   };
 
-  const renderInviteServerList = () => {
-    return (
-      <div className="flex flex-col gap-4">
-        <div
-          className={cn('flex w-full justify-between', {
-            hidden: isLoading,
-          })}
-        >
-          <Command className="rounded-lg border shadow-md md:min-w-[450px]">
-            <CommandInput placeholder={selectedServer?.name || 'Server name...'} />
-            <CommandList>
-              <CommandEmpty>No results found.</CommandEmpty>
-              <CommandGroup>
-                {data?.map((server) => (
-                  <CommandItem
-                    key={server?.id}
-                    className="group flex w-full gap-4 rounded-none border-b border-border py-2 data-[selected='true']:bg-gray-950"
-                    data-selected={'false'}
-                  >
-                    <DiscordAvatar
-                      assetId={server.icon}
-                      serverId={server.id}
-                      size={32}
-                      alt={server.name}
-                    />
+  const verifyBotInvite = async (server: UserServerData) => {
+    if (!server) {
+      return null;
+    }
 
-                    <div className="flex flex-1 flex-col gap-2 text-left">
-                      <h2 className="text-sm font-medium">{server.name}</h2>
-
-                      <div className="w-fit rounded-full bg-green-950 px-1 py-[1px] text-xs text-emerald-400">
-                        {server.owner ? 'Owner' : 'Administrator'}
-                      </div>
-                      <p className="hidden text-xs text-gray-500"> {server.id} </p>
-                    </div>
-
-                    <div className="duration-800 -translate-y-4 opacity-0 transition-all group-hover:flex group-hover:translate-y-0 group-hover:opacity-100">
-                      <Button
-                        onClick={() => handleInviteBot(server)}
-                        className="hidden gap-1 bg-gradient-to-r from-blue-500 to-purple-600 text-sm font-medium group-hover:flex"
-                        size="sm"
-                        variant={'outline'}
-                      >
-                        <Plus strokeWidth={2.5} className="size-4" />
-                        Invite
-                      </Button>
-                    </div>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </div>
-      </div>
-    );
-  };
-
-  const renderServerListView = () => {
-    return (
-      <div className="flex flex-wrap gap-4 p-2">
-        {data?.map((singleServer) => {
-          return (
-            <Card key={singleServer?.id} className="w-[300px]">
-              <CardContent className="flex h-full flex-col justify-between p-0">
-                <div className="flex flex-grow items-center gap-2 p-3">
-                  <DiscordAvatar
-                    assetId={singleServer.icon}
-                    serverId={singleServer.id}
-                    size={40}
-                    alt={singleServer.name}
-                  />
-                  <p> {singleServer?.name} </p>
-                </div>
-                <div className="flex h-9 border-t border-border">
-                  <Button
-                    onClick={() => handleInviteBot(singleServer)}
-                    className="w-full gap-1 rounded-none rounded-bl-lg text-sm font-medium"
-                    size="sm"
-                    variant={'ghost'}
-                  >
-                    Already Invited
-                  </Button>
-                  <Button
-                    onClick={() => handleInviteBot(singleServer)}
-                    className="w-full gap-1 rounded-none rounded-br-lg text-sm font-medium"
-                    size="sm"
-                    variant={'ghost'}
-                  >
-                    <Plus strokeWidth={2.5} className="size-4" />
-                    Invite
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
-    );
+    // call BE with server id to check if bot is in the server or not
+    await mutateAsync(server?.id, {
+      onSettled: (data) => {
+        if (!data) {
+          customToast({
+            title: 'Error',
+            description: "Couldn't find the bot in your server. Please invite the bot first.",
+            duration: 5000,
+          });
+          setIsBotInviteVerified(false);
+          return;
+        }
+      },
+    });
+    setIsBotInviteVerified(true);
   };
 
   const renderStepHeader = () => {
@@ -165,28 +100,184 @@ export const InviteBot: FC<InviteBotProps> = ({ onNext }) => {
     );
   };
 
+  const renderServerSelectionView = () => {
+    return (
+      <Popover open={isServerSelectionOpen} onOpenChange={setIsServerSelectionOpen}>
+        <PopoverTrigger asChild className="flex-grow">
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={isServerSelectionOpen}
+            className="w-full justify-between"
+          >
+            {selectedServer ? selectedServer?.name : 'Select a server...'}
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[var(--radix-popper-anchor-width)] p-0">
+          <Command>
+            <CommandInput placeholder="Search framework..." />
+            <CommandList>
+              <CommandEmpty>No framework found.</CommandEmpty>
+              <CommandGroup>
+                {data?.map((server) => (
+                  <CommandItem
+                    key={server?.id}
+                    className="group flex w-full gap-4 rounded-none border-b border-border py-2 data-[selected='true']:bg-gray-950"
+                    data-selected={'false'}
+                    onSelect={() => {
+                      updateSelectedServer(server);
+                      setIsServerSelectionOpen(false);
+                      setIsBotInviteVerified(false);
+                    }}
+                  >
+                    <DiscordAvatar
+                      assetId={server.icon}
+                      serverId={server.id}
+                      size={32}
+                      alt={server.name}
+                    />
+
+                    <div className="flex flex-1 flex-col gap-2 text-left">
+                      <h2 className="text-sm font-medium">{server.name}</h2>
+
+                      <div className="w-fit rounded-full bg-green-950 px-1 py-[1px] text-xs text-emerald-400">
+                        {server.owner ? 'Owner' : 'Administrator'}
+                      </div>
+                      <p className="hidden text-xs text-gray-500"> {server.id} </p>
+                    </div>
+                    <div>
+                      <CheckCheck
+                        strokeWidth={2}
+                        className={cn('hidden size-6', {
+                          'block text-emerald-500': selectedServer?.id === server.id,
+                        })}
+                      />
+                    </div>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    );
+  };
+
+  const renderBotInviteVerificationView = () => {
+    const isVerified = isBotInviteVerified;
+
+    return (
+      <Button
+        onClick={() => verifyBotInvite(selectedServer!)}
+        className="h-12 w-full gap-1 rounded-none rounded-bl-lg text-sm font-medium"
+        size="sm"
+        variant={'ghost'}
+      >
+        {isPending ? (
+          <span className="flex items-center gap-1">
+            <Loader2 strokeWidth={2} className="size-4 animate-spin" />
+            Verifying...
+          </span>
+        ) : null}
+        <span
+          className={cn('flex items-center gap-1 text-emerald-400', {
+            hidden: !isVerified || isPending,
+          })}
+        >
+          <CheckCheck strokeWidth={2} className="size-4" />
+          Verified
+        </span>
+        <span
+          className={cn('flex items-center gap-2 font-semibold text-red-500', {
+            hidden: isVerified || isPending,
+          })}
+        >
+          <TriangleAlert className="size-4" />
+          <span>Check Verification Status</span>
+        </span>
+      </Button>
+    );
+  };
+
+  const renderSelectedServerView = () => {
+    if (!hasSelectedServer) return null;
+    return (
+      <Card key={selectedServer?.id} className="mx-auto w-[70%]">
+        <CardContent className="flex h-full flex-col justify-between p-0">
+          <div className="flex flex-grow gap-3 p-6">
+            <DiscordAvatar
+              assetId={selectedServer.icon}
+              serverId={selectedServer.id}
+              size={80}
+              alt={selectedServer.name}
+              className="size-20 border"
+            />
+            <div className="text-md flex flex-col gap-1.5 font-normal text-primary">
+              <p className="font-bold"> {selectedServer?.name} </p>
+              <p className="text-sm text-muted-foreground">ID : {selectedServer?.id}</p>
+              <p className="text-muted-foreground">
+                Role :{' '}
+                <span className="rounded-full bg-blue-950 px-2 py-0.5 text-sm font-semibold text-blue-500">
+                  {selectedServer?.owner ? 'Owner' : 'Administrator'}
+                </span>
+              </p>
+            </div>
+          </div>
+          <div className="flex h-full border-t border-border">
+            {renderBotInviteVerificationView()}
+            <Button
+              onClick={() => handleInviteBot(selectedServer)}
+              className="h-12 w-full gap-1 rounded-none rounded-br-lg text-sm font-semibold"
+              size="sm"
+              variant={'ghost'}
+            >
+              <Plus strokeWidth={2.5} className="size-4" />
+              Invite
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
   return (
-    <div className="relative">
+    <div className="relative flex flex-col gap-3">
       {renderStepHeader()}
       <Separator />
 
       {renderLoadingView()}
+      <div className="flex gap-3 p-2 px-6">
+        {renderServerSelectionView()}
 
-      {/* {renderInviteServerList()} */}
-      {renderServerListView()}
+        <Button variant={'secondary'} size={'sm'}>
+          Rrefresh Server List
+        </Button>
+      </div>
 
-      <div className="pt-8">
+      {renderSelectedServerView()}
+      <div
+        className={cn('mx-auto flex items-center gap-1 text-indigo-400', {
+          hidden: isLoadingError || isLoading || !hasSelectedServer,
+        })}
+      >
+        <AlertCircle className="size-4" />
+        <p>Already invited the bot? check verification status</p>
+      </div>
+
+      <div className="flex w-full justify-end px-6">
         <Button
-          variant="ghost"
           onClick={onNext}
+          disabled={!isBotInviteVerified}
           className={cn(
-            'hidden border text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200',
+            'border text-secondary hover:text-gray-700 disabled:pointer-events-auto disabled:opacity-80',
             {
               hidden: isLoadingError || isLoading,
+              'cursor-not-allowed': !isBotInviteVerified,
             }
           )}
         >
-          I've already invited the bot
+          Next
         </Button>
       </div>
     </div>

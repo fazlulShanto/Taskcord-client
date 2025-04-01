@@ -62,8 +62,8 @@ export default function OnboardingPage() {
   };
 
   return (
-    <Dialog open>
-      <DialogContent className="flex h-[80vh] max-w-4xl gap-0 overflow-hidden p-0">
+    <Dialog open modal={false}>
+      <DialogContent className="flex h-[80vh] max-w-4xl gap-0 overflow-hidden p-0 [&>button]:hidden">
         <div className="border-r-borderPrimary-disable min-w-fit border-0 p-3 sm:border-r">
           <Stepper
             steps={formSteps}

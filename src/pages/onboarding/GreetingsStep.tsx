@@ -1,9 +1,6 @@
-// components/onboarding/welcome-step.tsx
-
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Rocket, Bot, Server, Sparkles } from 'lucide-react';
-// components/animated-bot.tsx
 
 export function AnimatedBot() {
   return (
@@ -16,6 +13,7 @@ export function AnimatedBot() {
     </motion.div>
   );
 }
+
 export function GreetingsStep({ onNext }: { onNext: () => void }) {
   return (
     <div className="relative flex h-[600px] items-center justify-center">
@@ -37,7 +35,7 @@ export function GreetingsStep({ onNext }: { onNext: () => void }) {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h1 className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-5xl font-bold text-transparent md:text-5xl">
-              Welcome to {import.meta.env.VITE_APP_NAME}
+              <span className="text-primary"> Welcome to</span> {import.meta.env.VITE_APP_NAME}
             </h1>
           </motion.div>
         </div>

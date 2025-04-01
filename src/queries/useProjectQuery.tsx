@@ -44,3 +44,13 @@ export const useDiscordServerListQuery = () => {
   });
   return query;
 };
+
+export const useBotInvitationVerificationQuery = () => {
+  const mutation = useMutation({
+    mutationFn: async (serverId: string) => {
+      const res = await HttpClient.get(APIs.bot.botServerVerification(serverId));
+      return res.data;
+    },
+  });
+  return mutation;
+};
