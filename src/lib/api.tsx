@@ -9,7 +9,8 @@ export const API_URL = getBaseApiUrl();
 
 export const APIs = {
   auth: {
-    initDiscordAuth: () => `${API_URL}/api/edge/auth/discord/init`,
+    initDiscordAuth: (redirectUrl: string) =>
+      `${API_URL}/api/edge/auth/discord/init?redirect_url=${redirectUrl}`,
     me: () => `${API_URL}/api/edge/users/@me`,
     createProject: () => `${API_URL}/api/edge/project`,
   },
