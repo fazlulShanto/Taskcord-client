@@ -29,4 +29,7 @@ export const APIs = {
     botServerVerification: (serverId: string) =>
       `${API_URL}/api/edge/project/${serverId}/is-bot-in-server`,
   },
+  utility: {
+    cookies: () => `${API_URL}/api/stable/utility/cookie-test`,
+  },
 };
