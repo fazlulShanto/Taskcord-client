@@ -1,5 +1,5 @@
 export const getBaseApiUrl = (): string => {
-  if (import.meta.env.MODE === 'production') {
+  if (['production', 'staging'].includes(import.meta.env.MODE)) {
     return import.meta.env.VITE_PROD_API_URL;
   }
   return import.meta.env.VITE_DEV_API_URL;
