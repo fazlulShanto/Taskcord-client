@@ -1,11 +1,5 @@
-import * as React from "react";
-import {
-  ChevronsUpDown,
-  Plus,
-  GalleryVerticalEnd,
-  AudioWaveform,
-  Command,
-} from "lucide-react";
+import * as React from 'react';
+import { ChevronsUpDown, Plus, GalleryVerticalEnd, AudioWaveform, Command } from 'lucide-react';
 
 import {
   DropdownMenu,
@@ -15,29 +9,29 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar';
 
 const dummyTeamData = [
   {
-    name: "Project Taskcord",
+    name: 'Project Taskcord',
     logo: GalleryVerticalEnd,
-    plan: "Enterprise",
+    plan: 'Enterprise',
   },
   {
-    name: "Mission Hunt",
+    name: 'Mission Hunt',
     logo: AudioWaveform,
-    plan: "Pro",
+    plan: 'Pro',
   },
   {
-    name: "What is life",
+    name: 'What is life',
     logo: Command,
-    plan: "Free",
+    plan: 'Free',
   },
 ];
 
@@ -59,9 +53,7 @@ export function TeamSwitcher() {
                 <activeTeam.logo className="size-4" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">
-                  {activeTeam.name}
-                </span>
+                <span className="truncate font-semibold">{activeTeam.name}</span>
                 <span className="truncate text-xs">{activeTeam.plan}</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
@@ -70,7 +62,7 @@ export function TeamSwitcher() {
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
             align="start"
-            side={isMobile ? "bottom" : "right"}
+            side={isMobile ? 'bottom' : 'right'}
             sideOffset={isMobile ? 4 : 12}
           >
             <DropdownMenuLabel className="text-xs text-muted-foreground">
@@ -94,9 +86,7 @@ export function TeamSwitcher() {
               <div className="flex size-6 items-center justify-center rounded-md border bg-background">
                 <Plus className="size-4" />
               </div>
-              <div className="font-medium text-muted-foreground">
-                Create a new Project
-              </div>
+              <div className="font-medium text-muted-foreground">Create a new Project</div>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

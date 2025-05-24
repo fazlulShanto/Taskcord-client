@@ -7,7 +7,7 @@ import {
   Settings2,
   Eye,
   PinOff,
-} from "lucide-react";
+} from 'lucide-react';
 
 import {
   DropdownMenu,
@@ -15,7 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -24,22 +24,22 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar';
 
 const dummyProjectData = [
   {
-    name: "Design Engineering",
-    url: "#",
+    name: 'Design Engineering',
+    url: '#',
     icon: Frame,
   },
   {
-    name: "Sales & Marketing",
-    url: "#",
+    name: 'Sales & Marketing',
+    url: '#',
     icon: PieChart,
   },
   {
-    name: "Travel",
-    url: "#",
+    name: 'Travel',
+    url: '#',
     icon: Map,
   },
 ];
@@ -52,7 +52,7 @@ export function NavProjects() {
     // <SidebarGroup className="group-data-[collapsible=icon]:hidden">
     <SidebarGroup>
       <SidebarGroupLabel>
-        <PinIcon className="rotate-45 mr-1" /> Pinned Projects
+        <PinIcon className="mr-1 rotate-45" /> Pinned Projects
       </SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
@@ -65,7 +65,7 @@ export function NavProjects() {
               <DropdownMenuTrigger
                 asChild
                 disabled={!open}
-                className={!open ? "hidden" : "visible"}
+                className={!open ? 'hidden' : 'visible'}
               >
                 <SidebarMenuAction showOnHover>
                   <MoreHorizontal />
@@ -74,8 +74,8 @@ export function NavProjects() {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className="w-48 rounded-lg"
-                side={isMobile ? "bottom" : "right"}
-                align={isMobile ? "end" : "start"}
+                side={isMobile ? 'bottom' : 'right'}
+                align={isMobile ? 'end' : 'start'}
               >
                 <DropdownMenuItem>
                   <PinOff className="text-destructive" />

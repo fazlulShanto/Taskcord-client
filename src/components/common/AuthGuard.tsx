@@ -1,21 +1,21 @@
-import { FC } from "react";
-import { useAuthQuery } from "@/queries/useAuthQuery";
-import { Navigate } from "@tanstack/react-router";
+import { FC } from 'react';
+import { useAuthQuery } from '@/queries/useAuthQuery';
+import { Navigate } from '@tanstack/react-router';
 
 interface AuthGuardProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 export const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
-    const { isLoading, isAuthenticated } = useAuthQuery();
+  const { isLoading, isAuthenticated } = useAuthQuery();
 
-    // TODO: show loading UI
+  // TODO: show loading UI
 
-    if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
 
-    // if not authenticated, redirect to login
-    if (!isAuthenticated) return <Navigate to="/" />;
+  // if not authenticated, redirect to login
+  if (!isAuthenticated) return <Navigate to="/" />;
 
-    // if authenticated, render children
-    return <>{children}</>;
+  // if authenticated, render children
+  return <>{children}</>;
 };

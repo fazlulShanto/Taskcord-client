@@ -20,10 +20,7 @@
   "theme_color": "#000000",
   "background_color": "#ffffff",
   "orientation": "any",
-  "categories": [
-    "productivity",
-    "business"
-  ],
+  "categories": ["productivity", "business"],
   "screenshots": [
     {
       "src": "screenshot1.png",

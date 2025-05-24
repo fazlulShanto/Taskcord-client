@@ -18,11 +18,10 @@
     width: 100%;
     border-radius: 8px;
     height: 36px;
-
   }
 
   .single-step:not(:last-child):after {
-    content: "";
+    content: '';
     background-color: var(--background);
     border: 1px dashed #737373;
     width: 0px;

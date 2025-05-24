@@ -1,16 +1,16 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 type Project = {
-    id: string;
-    name: string;
-    description: string;
-    createdAt: Date;
-    updatedAt: Date;
+  id: string;
+  name: string;
+  description: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 type LandingDashboardStore = {
-    projectList: Project[];
+  projectList: Project[];
 };
 
 export const useLandingDashboard = create<LandingDashboardStore>(() => ({
-    projectList: [],
+  projectList: [],
 }));

@@ -1,22 +1,16 @@
-import ClockFace from "@/components/common/clockFace";
+import ClockFace from '@/components/common/clockFace';
 
 const userTimeZones = [
-  { memberName: "Sehrik", timezone: "Asia/Dhaka" },
-  { memberName: "Mutsah", timezone: "Africa/Johannesburg" },
-  { memberName: "Skyler", timezone: "America/Los_Angeles" },
+  { memberName: 'Sehrik', timezone: 'Asia/Dhaka' },
+  { memberName: 'Mutsah', timezone: 'Africa/Johannesburg' },
+  { memberName: 'Skyler', timezone: 'America/Los_Angeles' },
 ];
 function ClockFacePage() {
   return (
-    <div className="flex flex-col md:flex-row space-x-0 md:space-x-12 space-y-8 md:space-y-0 items-center justify-center bg-gray-900 min-h-screen">
+    <div className="flex min-h-screen flex-col items-center justify-center space-x-0 space-y-8 bg-gray-900 md:flex-row md:space-x-12 md:space-y-0">
       {userTimeZones.map((timeZone, index) => (
-        <div
-          key={index}
-          className="bg-gray-800 py-6 px-8 rounded-3xl shadow-lg"
-        >
-          <ClockFace
-            currentTimeZone={timeZone.timezone}
-            memberName={timeZone.memberName}
-          />
+        <div key={index} className="rounded-3xl bg-gray-800 px-8 py-6 shadow-lg">
+          <ClockFace currentTimeZone={timeZone.timezone} memberName={timeZone.memberName} />
         </div>
       ))}
     </div>

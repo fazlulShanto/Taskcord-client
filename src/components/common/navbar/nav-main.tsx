@@ -1,17 +1,7 @@
-"use client";
+'use client';
 
-import {
-  Settings,
-  ChevronRight,
-  LayoutDashboard,
-  ListTodo,
-  Cable,
-} from "lucide-react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Settings, ChevronRight, LayoutDashboard, ListTodo, Cable } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -21,41 +11,41 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar";
-import { FC } from "react";
+} from '@/components/ui/sidebar';
+import { FC } from 'react';
 
 const NavbarData = [
   {
-    title: "Dashboard",
-    url: "#",
+    title: 'Dashboard',
+    url: '#',
     icon: LayoutDashboard,
     isActive: true,
     items: [],
   },
   {
-    title: "Tasks",
-    url: "#",
+    title: 'Tasks',
+    url: '#',
     icon: ListTodo,
     items: [],
   },
   {
-    title: "Integrations",
-    url: "#",
+    title: 'Integrations',
+    url: '#',
     icon: Cable,
     items: [],
   },
   {
-    title: "Settings",
-    url: "#",
+    title: 'Settings',
+    url: '#',
     icon: Settings,
     items: [
       {
-        title: "Project Informations",
-        url: "#",
+        title: 'Project Informations',
+        url: '#',
       },
       {
-        title: "Member Management",
-        url: "#",
+        title: 'Member Management',
+        url: '#',
       },
     ],
   },
