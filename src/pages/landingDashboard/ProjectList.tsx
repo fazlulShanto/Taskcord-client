@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ClientDataTable } from '@/components/ui/ClientDataTable';
 import { SingleProject } from '@/types/project';
@@ -43,7 +44,12 @@ const ProjectListTableColumns: ColumnDef<SingleProject>[] = [
 export const DashboardProjectList: FC<ProjectListProps> = ({ projectList }) => {
   return (
     <div>
-      <p className="mb-3 text-lg font-medium">Project List</p>
+      <div className="flex-between mb-2">
+        <p className="mb-3 text-lg font-medium">Project List</p>
+        <Button disabled size={'sm'}>
+          + Create new project
+        </Button>
+      </div>
       <Card>
         <div className="w-full rounded-lg border-0">
           <ClientDataTable data={projectList} columns={ProjectListTableColumns} />

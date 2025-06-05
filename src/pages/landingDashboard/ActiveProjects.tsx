@@ -10,7 +10,7 @@ interface ActiveProjectsProps {
 export const ActiveProjects: FC<ActiveProjectsProps> = ({ projectList }) => {
   return (
     <div className="flex flex-col gap-3">
-      <p className="text-lg font-semibold text-muted-foreground">Current Projects</p>
+      <p className="text-lg font-semibold text-primary">Active Projects</p>
       <div className="flex flex-wrap gap-3">
         {projectList.map((project) => {
           return (

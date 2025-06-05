@@ -1,3 +1,4 @@
+import { useAuthQuery } from '@/queries/useAuthQuery';
 import { useProjectListQuery } from '@/queries/useProjectQuery';
 import { CircleCheckBig, FolderKanban, GitPullRequestDraft, ListTodo } from 'lucide-react';
 import { ActiveProjects } from './ActiveProjects';
@@ -7,6 +8,9 @@ import { DashboardProjectList } from './ProjectList';
 
 export const LandingDashboard = () => {
   const { data } = useProjectListQuery();
+  const { data: authData } = useAuthQuery();
+
+  const userName = authData?.fullName || 'Annonymous User';
   const projectList = data?.projects || [];
 
   if (projectList.length === 0) {
@@ -15,7 +19,7 @@ export const LandingDashboard = () => {
 
   return (
     <div className="flex h-full min-h-screen flex-col gap-8 bg-background p-8">
-      <h1 className="text-2xl font-semibold">Welcome Back, User Name!</h1>
+      <h1 className="text-2xl font-semibold">Welcome Back, {userName}!</h1>
       <div className="flex flex-wrap gap-3">
         <LandingDashboardCard
           title="Total Projects"
