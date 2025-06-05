@@ -109,6 +109,15 @@
   }
 }
 
+@layer components {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+}
+
 @keyframes shine {
   0% {
     transform: translateX(-100%);

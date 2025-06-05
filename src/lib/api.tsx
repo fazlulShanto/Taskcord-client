@@ -15,6 +15,7 @@ export const APIs = {
     createProject: () => `${API_URL}/api/edge/project`,
   },
   project: {
+    getAllProjects: () => `${API_URL}/api/edge/project`,
     get: (projectId: string) => `${API_URL}/api/edge/project/${projectId}`,
     update: (projectId: string) => `${API_URL}/api/edge/project/${projectId}`,
   },

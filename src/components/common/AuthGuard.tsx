@@ -11,7 +11,7 @@ export const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
 
   // TODO: show loading UI
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="flex-center h-screen w-screen">Loading...</div>;
 
   // if not authenticated, redirect to login
   if (!isAuthenticated) return <Navigate to="/" />;

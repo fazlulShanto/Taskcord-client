@@ -1,7 +1,8 @@
 import { APIs } from '@/lib/api';
 import { HttpClient } from '@/lib/httpClient';
 import { UserServerData } from '@/pages/onboarding/interfaces';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { SingleProject } from '@/types/project';
+import { useMutation, useQuery, queryOptions } from '@tanstack/react-query';
 
 export interface NewlyCreatedProject {
   id: string;
@@ -35,7 +36,7 @@ export const useCreateProjectMutation = () => {
 
 export const useDiscordServerListQuery = () => {
   const query = useQuery<UserServerData[]>({
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: import.meta.env.PROD,
     queryKey: ['discord-server-list'],
     queryFn: async () => {
       const res = await HttpClient.get(APIs.user.userGuilds());
@@ -53,4 +54,16 @@ export const useBotInvitationVerificationQuery = () => {
     },
   });
   return mutation;
+};
+
+export const porjectQueryOptions = queryOptions({
+  queryKey: ['all-project-list'],
+  queryFn: async () => {
+    const res = await HttpClient.get<{ projects: SingleProject[] }>(APIs.project.getAllProjects());
+    return res.data;
+  },
+});
+
+export const useProjectListQuery = () => {
+  return useQuery(porjectQueryOptions);
 };
