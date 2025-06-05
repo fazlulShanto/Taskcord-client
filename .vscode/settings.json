@@ -12,7 +12,10 @@
   "files.autoSave": "onFocusChange",
   "explorer.openEditors.visible": 1,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
+    "source.sortImports": "always",
+    "source.organizeImports": "always",
+    "source.addMissingImports.ts": "always"
   },
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.tabSize": 2,

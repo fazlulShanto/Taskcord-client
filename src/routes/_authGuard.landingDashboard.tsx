@@ -6,10 +6,11 @@ export const Route = createFileRoute('/_authGuard/landingDashboard')({
 });
 
 function RouteComponent() {
-  return (
-    <div className="flex h-screen w-screen">
-      <div className="m-2 rounded-md border border-r p-4">side bar here</div>
-      <LandingDashboard />
-    </div>
-  );
+  return <LandingDashboard />;
+  // return (
+  //   <div className="flex h-screen w-screen">
+  //     <div className="m-2 rounded-md border border-r p-4">side bar here</div>
+  //     <LandingDashboard />
+  //   </div>
+  // );
 }
