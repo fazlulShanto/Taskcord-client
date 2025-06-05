@@ -8,7 +8,7 @@ interface ConnectGithubProps {
   onNext: () => void;
 }
 
-export const ConnectGithub: FC<ConnectGithubProps> = ({ onNext }) => {
+export const ConnectGithub: FC<ConnectGithubProps> = () => {
   const navigate = useNavigate();
   const createProjectMutation = useCreateProjectMutation();
   const projectName = useProjectCreation((state) => state.projectName);

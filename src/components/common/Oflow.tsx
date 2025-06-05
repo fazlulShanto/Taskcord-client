@@ -1,12 +1,12 @@
 // components/onboarding/onboarding-flow.tsx
 'use client';
 
-import * as React from 'react';
-import { motion } from 'framer-motion';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { motion } from 'framer-motion';
+import { AlertCircle, CheckCircle2, ChevronLeft } from 'lucide-react';
+import * as React from 'react';
 
 type Step = 'welcome' | 'project' | 'discord' | 'verification' | 'complete';
 
@@ -88,9 +88,6 @@ function WelcomeStep({ onNext }: { onNext: () => void }) {
 }
 
 // Project Step Component
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import {
   Form,
   FormControl,
@@ -101,6 +98,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 const projectFormSchema = z.object({
   projectName: z.string().min(3).max(50),
@@ -228,6 +228,7 @@ function VerificationStep({ onNext }: { onNext: () => void }) {
     }, 2000);
 
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

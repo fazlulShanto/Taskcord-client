@@ -1,8 +1,8 @@
 // ServerCard.tsx
-import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Card, CardFooter, CardHeader } from '@/components/ui/card';
 import { Upload } from 'lucide-react';
+import React from 'react';
 
 // Interface matching your provided server data structure
 interface ServerData {
