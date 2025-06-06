@@ -1,5 +1,5 @@
 import { AppSidebar } from '@/components/common/navbar/app-sidebar';
-import { SidebarProvider } from '@/components/ui/sidebar';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import LandingDashboard from '@/pages/overview';
 import { createFileRoute } from '@tanstack/react-router';
 
@@ -11,7 +11,9 @@ function RouteComponent() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <LandingDashboard />
+      <SidebarInset>
+        <LandingDashboard />
+      </SidebarInset>
     </SidebarProvider>
   );
 }

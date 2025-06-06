@@ -54,7 +54,7 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
-    --background: 240 7% 11%;
+    --background: 240 7% 10.5%;
     /* --background: 240 7% 11%; */
     --foreground: 210 40% 98%;
     --card: 240 3% 13%;
@@ -66,8 +66,8 @@
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 217.2 12.6% 15%;
+    --muted-foreground: 215 20.2% 80%;
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;

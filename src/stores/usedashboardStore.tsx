@@ -15,7 +15,6 @@ export const useDashboardProjectStore = create<DashboardProjectStore>()(
       selectedProject: undefined,
       projectList: [],
       updatedSelectedProject: (project: SingleProject | undefined) => {
-        console.log(`✅ updating`, project);
         set((oldState) => ({
           ...oldState,
           selectedProject: project,
