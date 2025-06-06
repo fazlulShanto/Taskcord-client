@@ -87,7 +87,7 @@ export const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) =
         />
         <NavProjects />
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="border-t border-border">
         <NavUser />
       </SidebarFooter>
       <SidebarRail />
