@@ -6,7 +6,7 @@ import { EmptyDashboard } from './EmptyDashboard';
 import { LandingDashboardCard } from './LandingDashboardCard';
 import { DashboardProjectList } from './ProjectList';
 
-export const LandingDashboard = () => {
+export const OverviewDashboard = () => {
   const { data } = useProjectListQuery();
   const { data: authData } = useAuthQuery();
 
@@ -18,17 +18,12 @@ export const LandingDashboard = () => {
   }
 
   return (
-    <div className="flex h-full min-h-screen flex-col gap-8 bg-background p-8">
+    <div className="flex h-full w-full flex-col gap-8 bg-background p-8">
       <h1 className="text-2xl font-semibold">Welcome Back, {userName}!</h1>
-      <div className="flex flex-wrap gap-3">
+      <div className="grid w-full grid-cols-4 gap-3">
         <LandingDashboardCard
           title="Total Projects"
           statData={projectList?.length || 0}
-          icon={<FolderKanban className="size-10 text-muted-foreground" />}
-        />
-        <LandingDashboardCard
-          title="Total Task"
-          statData={2343}
           icon={<FolderKanban className="size-10 text-muted-foreground" />}
         />
         <LandingDashboardCard
@@ -53,4 +48,4 @@ export const LandingDashboard = () => {
   );
 };
 
-export default LandingDashboard;
+export default OverviewDashboard;

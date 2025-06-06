@@ -1,6 +1,5 @@
 'use client';
 
-import { Settings, ChevronRight, LayoutDashboard, ListTodo, Cable } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   SidebarGroup,
@@ -12,6 +11,8 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
+import { useNavigate } from '@tanstack/react-router';
+import { Cable, ChevronRight, LayoutDashboard, ListTodo, Settings } from 'lucide-react';
 import { FC } from 'react';
 
 const NavbarData = [
@@ -51,10 +52,21 @@ const NavbarData = [
   },
 ];
 
-interface NavMainItem {}
+type NavMainItems = typeof NavbarData;
+interface NavMainItemProps {
+  navbarData?: NavMainItems;
+  label?: string;
+  hideLabel?: boolean;
+}
 
-export const NavMain: FC<NavMainItem> = () => {
-  const items = NavbarData;
+export const NavMain: FC<NavMainItemProps> = ({
+  navbarData,
+  label = 'Project Menu',
+  hideLabel = false,
+}) => {
+  const navigate = useNavigate();
+  const items = Array.isArray(navbarData) && navbarData.length ? navbarData : NavbarData;
+
   const renderCollapsibleNabItem = (item: (typeof items)[0]) => {
     return (
       <Collapsible
@@ -92,7 +104,7 @@ export const NavMain: FC<NavMainItem> = () => {
   const renderSidebarMenuItem = (item: (typeof items)[0]) => {
     return (
       <SidebarMenuItem key={item.title}>
-        <SidebarMenuButton tooltip={item.title}>
+        <SidebarMenuButton tooltip={item.title} onClick={() => navigate({ to: item?.url })}>
           {item.icon && <item.icon />}
           <span>{item.title}</span>
         </SidebarMenuButton>
@@ -102,7 +114,7 @@ export const NavMain: FC<NavMainItem> = () => {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Current Project Name</SidebarGroupLabel>
+      {!hideLabel && <SidebarGroupLabel> {label} </SidebarGroupLabel>}
       <SidebarMenu>
         {items.map((item) => {
           if (item?.items?.length) {

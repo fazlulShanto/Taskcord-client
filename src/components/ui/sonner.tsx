@@ -1,109 +1,164 @@
+import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { Toaster as Sonner } from 'sonner';
-import { toast as sonnerToast } from 'sonner';
+import React from 'react';
+import {
+  Toaster as Sonner,
+  toast as sonnerToast,
+  ToasterProps,
+  useSonner,
+  type ExternalToast,
+} from 'sonner';
 
-type ToasterProps = React.ComponentProps<typeof Sonner>;
-
-const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = 'system' } = useTheme();
-
+const SonnerToaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
-      theme={theme as ToasterProps['theme']}
       className="toaster group"
-      toastOptions={{
-        classNames: {
-          toast:
-            'group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg',
-          description: 'group-[.toast]:text-muted-foreground',
-          actionButton: 'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
-          cancelButton: 'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
-        },
-      }}
+      position="bottom-right"
+      duration={3 * 1000} // 3seconds
+      swipeDirections={['right']} // swipe to dismiss
+      visibleToasts={4} // how many toast can be visible at the same time on hover
       {...props}
     />
   );
 };
 
-/** I recommend abstracting the toast function
- *  so that you can call it without having to use toast.custom everytime. */
-export function customToast(toast: Partial<Omit<ToastProps, 'id'>>) {
-  return sonnerToast.custom(
-    (id) => (
-      <Toast
-        id={id}
-        title={toast?.title || ''}
-        description={toast?.description || ''}
-        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-        button={toast?.button!}
-      />
-    ),
-    {
-      duration: toast?.duration || 3 * 1000,
-      className: 'rounded',
+const useSonnerToast = () => {
+  const { toasts } = useSonner();
+
+  const dismissAllToast = () => {
+    return sonnerToast.dismiss();
+  };
+
+  const updateToast = (id: string | number, content: string) => {
+    if (!id) return;
+    const targetToast = toasts.find((toast) => toast.id === id);
+    if (!targetToast) {
+      return;
     }
-  );
+    sonnerToast(content, {
+      id: targetToast.id,
+    });
+  };
+
+  const deleteToast = (id: string | number) => {
+    if (!id) return;
+    sonnerToast.dismiss(id);
+  };
+
+  return {
+    visibleToasts: toasts,
+    dismissAllToast,
+    deleteToast,
+    updateToast,
+  };
+};
+
+interface ToastProps extends ExternalToast {
+  id: string | number;
+  title?: string | React.ReactElement;
+  description: string | React.ReactElement;
+  onClose?: () => void;
+  toastType?: 'default' | 'destructive' | 'success';
 }
 
-/** A fully custom toast that still maintains the animations and interactions. */
-function Toast(props: ToastProps) {
-  const { title, description, button, id } = props;
+/** A fully custom toast that still maintains the animations and interactions but comes with our own design */
+function Toast({ id, title, description, onClose, toastType = 'default' }: ToastProps) {
+  const renderToastButtons = () => {
+    return (
+      <button
+        className={cn(
+          'bg-background-hover hidden h-8 w-8 items-center justify-center rounded-md group-hover:flex',
+          {
+            'border border-[#FF5757] bg-transparent': toastType === 'destructive',
+          }
+        )}
+        onClick={() => {
+          if (typeof onClose === 'function') {
+            onClose();
+          }
+          sonnerToast.dismiss(id);
+        }}
+      >
+        <X className="h-4 w-4" strokeWidth={2.5} />
+      </button>
+    );
+  };
+
+  const renderTitle = () => {
+    if (typeof title === 'string') {
+      return (
+        <p
+          className={cn('text-textPrimary text-sm font-semibold', {
+            'text-primary': toastType === 'success',
+            'text-white': toastType === 'destructive',
+          })}
+        >
+          {title}
+        </p>
+      );
+    }
+    if (React.isValidElement(title)) {
+      return title;
+    }
+    return null;
+  };
+
+  const renderDescription = () => {
+    if (typeof description === 'string') {
+      return (
+        <p
+          className={cn('text-textPrimary text-sm font-normal', {
+            'text-white': toastType === 'destructive',
+            'font-medium': !title,
+          })}
+        >
+          {description}
+        </p>
+      );
+    }
+    if (React.isValidElement(description)) {
+      return description;
+    }
+    return null;
+  };
 
   return (
-    <div className="flex w-full items-center rounded bg-background p-4 shadow-lg ring-1 ring-black/5 md:max-w-[364px]">
-      <div className="flex flex-1 items-center">
-        <div className="w-full">
-          <p className="text-sm font-medium text-primary">{title}</p>
-          {!!description && <p className="mt-1 text-sm text-gray-500">{description}</p>}
-        </div>
-      </div>
-      <div className="focus:outline-hidden ml-5 shrink-0 rounded-md text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-        {button ? (
-          <button
-            className="rounded bg-indigo-50 px-3 py-1 text-sm font-semibold text-indigo-600 hover:bg-indigo-100"
-            onClick={() => {
-              button.onClick();
-              sonnerToast.dismiss(id);
-            }}
-          >
-            {button.label}
-          </button>
-        ) : (
-          <button
-            className="rounded-full bg-red-950 p-1 text-sm font-semibold"
-            onClick={() => sonnerToast.dismiss(id)}
-          >
-            <X className="size-4 text-red-400" />
-          </button>
-        )}
+    <div
+      className={cn(
+        'group relative h-auto w-[384px] rounded-md border border-border bg-white p-4 shadow-xl',
+        {
+          'bg-[#D70000] text-white': toastType === 'destructive',
+        }
+      )}
+    >
+      <div className="absolute right-3 top-3">{renderToastButtons()}</div>
+      <div className={'flex w-full flex-col justify-end gap-1'}>
+        {renderTitle()}
+        {renderDescription()}
       </div>
     </div>
   );
 }
 
-/* example usage:
-        toast({
-              title: 'This is a headless toast',
-              description:
-                'You have full control of styles and jsx, while still having the animations.',
-              button: {
-                label: 'Reply',
-                onClick: () => sonnerToast.dismiss(),
-              },
-        });
-
-*/
-
-interface ToastProps {
-  id: string | number;
-  title: string;
-  description: string;
-  duration?: number;
-  button: {
-    label: string;
-    onClick: () => void;
-  };
+function toast({
+  title,
+  description,
+  action = undefined,
+  onClose,
+  toastType,
+  ...rest
+}: Omit<ToastProps, 'id'>) {
+  return sonnerToast.custom((id) => (
+    <Toast
+      {...rest}
+      id={id}
+      title={title}
+      description={description}
+      action={action}
+      onClose={onClose}
+      toastType={toastType}
+    />
+  ));
 }
 
-export { Toaster };
+export { SonnerToaster, toast, useSonnerToast };

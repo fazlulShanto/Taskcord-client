@@ -17,8 +17,8 @@ import { Route as AboutImport } from './routes/about'
 import { Route as AuthGuardImport } from './routes/_authGuard'
 import { Route as IndexImport } from './routes/index'
 import { Route as AdminClockImport } from './routes/admin/clock'
+import { Route as AuthGuardOverviewImport } from './routes/_authGuard.overview'
 import { Route as AuthGuardOnboardingImport } from './routes/_authGuard.onboarding'
-import { Route as AuthGuardLandingDashboardImport } from './routes/_authGuard.landingDashboard'
 import { Route as AuthGuardProjectProjectIdImport } from './routes/_authGuard.project/$projectId'
 import { Route as AuthGuardProjectProjectIdIndexImport } from './routes/_authGuard.project/$projectId/index'
 import { Route as AuthGuardProjectProjectIdTeamSettingsImport } from './routes/_authGuard.project/$projectId/team-settings'
@@ -61,15 +61,15 @@ const AdminClockRoute = AdminClockImport.update({
   getParentRoute: () => AdminRoute,
 } as any)
 
-const AuthGuardOnboardingRoute = AuthGuardOnboardingImport.update({
-  id: '/onboarding',
-  path: '/onboarding',
+const AuthGuardOverviewRoute = AuthGuardOverviewImport.update({
+  id: '/overview',
+  path: '/overview',
   getParentRoute: () => AuthGuardRoute,
 } as any)
 
-const AuthGuardLandingDashboardRoute = AuthGuardLandingDashboardImport.update({
-  id: '/landingDashboard',
-  path: '/landingDashboard',
+const AuthGuardOnboardingRoute = AuthGuardOnboardingImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
   getParentRoute: () => AuthGuardRoute,
 } as any)
 
@@ -139,18 +139,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlaygroundImport
       parentRoute: typeof rootRoute
     }
-    '/_authGuard/landingDashboard': {
-      id: '/_authGuard/landingDashboard'
-      path: '/landingDashboard'
-      fullPath: '/landingDashboard'
-      preLoaderRoute: typeof AuthGuardLandingDashboardImport
-      parentRoute: typeof AuthGuardImport
-    }
     '/_authGuard/onboarding': {
       id: '/_authGuard/onboarding'
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof AuthGuardOnboardingImport
+      parentRoute: typeof AuthGuardImport
+    }
+    '/_authGuard/overview': {
+      id: '/_authGuard/overview'
+      path: '/overview'
+      fullPath: '/overview'
+      preLoaderRoute: typeof AuthGuardOverviewImport
       parentRoute: typeof AuthGuardImport
     }
     '/admin/clock': {
@@ -214,14 +214,14 @@ const AuthGuardProjectProjectIdRouteWithChildren =
   )
 
 interface AuthGuardRouteChildren {
-  AuthGuardLandingDashboardRoute: typeof AuthGuardLandingDashboardRoute
   AuthGuardOnboardingRoute: typeof AuthGuardOnboardingRoute
+  AuthGuardOverviewRoute: typeof AuthGuardOverviewRoute
   AuthGuardProjectProjectIdRoute: typeof AuthGuardProjectProjectIdRouteWithChildren
 }
 
 const AuthGuardRouteChildren: AuthGuardRouteChildren = {
-  AuthGuardLandingDashboardRoute: AuthGuardLandingDashboardRoute,
   AuthGuardOnboardingRoute: AuthGuardOnboardingRoute,
+  AuthGuardOverviewRoute: AuthGuardOverviewRoute,
   AuthGuardProjectProjectIdRoute: AuthGuardProjectProjectIdRouteWithChildren,
 }
 
@@ -245,8 +245,8 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/playground': typeof PlaygroundRoute
-  '/landingDashboard': typeof AuthGuardLandingDashboardRoute
   '/onboarding': typeof AuthGuardOnboardingRoute
+  '/overview': typeof AuthGuardOverviewRoute
   '/admin/clock': typeof AdminClockRoute
   '/project/$projectId': typeof AuthGuardProjectProjectIdRouteWithChildren
   '/project/$projectId/dashboard': typeof AuthGuardProjectProjectIdDashboardRoute
@@ -260,8 +260,8 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/playground': typeof PlaygroundRoute
-  '/landingDashboard': typeof AuthGuardLandingDashboardRoute
   '/onboarding': typeof AuthGuardOnboardingRoute
+  '/overview': typeof AuthGuardOverviewRoute
   '/admin/clock': typeof AdminClockRoute
   '/project/$projectId/dashboard': typeof AuthGuardProjectProjectIdDashboardRoute
   '/project/$projectId/team-settings': typeof AuthGuardProjectProjectIdTeamSettingsRoute
@@ -275,8 +275,8 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/playground': typeof PlaygroundRoute
-  '/_authGuard/landingDashboard': typeof AuthGuardLandingDashboardRoute
   '/_authGuard/onboarding': typeof AuthGuardOnboardingRoute
+  '/_authGuard/overview': typeof AuthGuardOverviewRoute
   '/admin/clock': typeof AdminClockRoute
   '/_authGuard/project/$projectId': typeof AuthGuardProjectProjectIdRouteWithChildren
   '/_authGuard/project/$projectId/dashboard': typeof AuthGuardProjectProjectIdDashboardRoute
@@ -292,8 +292,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/playground'
-    | '/landingDashboard'
     | '/onboarding'
+    | '/overview'
     | '/admin/clock'
     | '/project/$projectId'
     | '/project/$projectId/dashboard'
@@ -306,8 +306,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/playground'
-    | '/landingDashboard'
     | '/onboarding'
+    | '/overview'
     | '/admin/clock'
     | '/project/$projectId/dashboard'
     | '/project/$projectId/team-settings'
@@ -319,8 +319,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/playground'
-    | '/_authGuard/landingDashboard'
     | '/_authGuard/onboarding'
+    | '/_authGuard/overview'
     | '/admin/clock'
     | '/_authGuard/project/$projectId'
     | '/_authGuard/project/$projectId/dashboard'
@@ -368,8 +368,8 @@ export const routeTree = rootRoute
     "/_authGuard": {
       "filePath": "_authGuard.tsx",
       "children": [
-        "/_authGuard/landingDashboard",
         "/_authGuard/onboarding",
+        "/_authGuard/overview",
         "/_authGuard/project/$projectId"
       ]
     },
@@ -385,12 +385,12 @@ export const routeTree = rootRoute
     "/playground": {
       "filePath": "playground.tsx"
     },
-    "/_authGuard/landingDashboard": {
-      "filePath": "_authGuard.landingDashboard.tsx",
-      "parent": "/_authGuard"
-    },
     "/_authGuard/onboarding": {
       "filePath": "_authGuard.onboarding.tsx",
+      "parent": "/_authGuard"
+    },
+    "/_authGuard/overview": {
+      "filePath": "_authGuard.overview.tsx",
       "parent": "/_authGuard"
     },
     "/admin/clock": {

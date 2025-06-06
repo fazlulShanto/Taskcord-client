@@ -1,6 +1,7 @@
 import { APIs } from '@/lib/api';
 import { HttpClient } from '@/lib/httpClient';
 import { UserServerData } from '@/pages/onboarding/interfaces';
+import { useDashboardProjectStore } from '@/stores/usedashboardStore';
 import { SingleProject } from '@/types/project';
 import { queryOptions, useMutation, useQuery } from '@tanstack/react-query';
 
@@ -61,6 +62,13 @@ export const porjectQueryOptions = queryOptions({
   staleTime: 1000 * 60 * 3, //3min
   queryFn: async () => {
     const res = await HttpClient.get<{ projects: SingleProject[] }>(APIs.project.getAllProjects());
+    const { updatedSelectedProject, selectedProject, updateProjectList } =
+      useDashboardProjectStore.getState();
+    if (!selectedProject) {
+      updatedSelectedProject(res.data.projects[0]);
+    }
+    updateProjectList(res.data.projects);
+
     return res.data;
   },
 });

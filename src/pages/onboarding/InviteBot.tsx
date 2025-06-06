@@ -1,5 +1,6 @@
+import { DiscordAvatar } from '@/components/common/DiscordAvatar';
 import { Button } from '@/components/ui/button';
-import { FC, useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Command,
   CommandEmpty,
@@ -8,8 +9,14 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Separator } from '@/components/ui/separator';
+import { toast } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
-import { DiscordAvatar } from '@/components/common/DiscordAvatar';
+import {
+  useBotInvitationVerificationQuery,
+  useDiscordServerListQuery,
+} from '@/queries/useProjectQuery';
 import { useProjectCreation } from '@/stores/useProjectCreation';
 import {
   AlertCircle,
@@ -19,15 +26,8 @@ import {
   Plus,
   TriangleAlert,
 } from 'lucide-react';
-import {
-  useBotInvitationVerificationQuery,
-  useDiscordServerListQuery,
-} from '@/queries/useProjectQuery';
+import { FC, useState } from 'react';
 import { UserServerData } from './interfaces';
-import { Separator } from '@/components/ui/separator';
-import { Card, CardContent } from '@/components/ui/card';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { customToast } from '@/components/ui/sonner';
 
 interface InviteBotProps {
   onNext: () => void;
@@ -62,7 +62,7 @@ export const InviteBot: FC<InviteBotProps> = ({ onNext }) => {
     await mutateAsync(server?.id, {
       onSettled: (data) => {
         if (!data) {
-          customToast({
+          toast({
             title: 'Error',
             description: "Couldn't find the bot in your server. Please invite the bot first.",
             duration: 5000,

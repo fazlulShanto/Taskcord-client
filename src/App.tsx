@@ -3,9 +3,9 @@ import { RouterProvider, createRouter } from '@tanstack/react-router';
 import ErrorBoundary from './components/ErrorBoundary';
 import PageNotFound from './components/PageNotFound';
 import { ThemeProvider } from './components/ThemeProvider';
+import { SonnerToaster } from './components/ui/sonner';
 import './index.css';
 import { routeTree } from './routeTree.gen';
-import { Toaster } from './components/ui/sonner';
 const queryClient = new QueryClient();
 
 // Create a new router instance
@@ -29,7 +29,7 @@ export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <Toaster />
+        <SonnerToaster />
         <RouterProvider router={router} />
       </ThemeProvider>
     </QueryClientProvider>

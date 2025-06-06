@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { ChevronsUpDown, Plus, GalleryVerticalEnd, AudioWaveform, Command } from 'lucide-react';
+import { BoxSelect, ChevronsUpDown, Plus } from 'lucide-react';
 
 import {
   DropdownMenu,
@@ -16,29 +15,26 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { toast } from '@/components/ui/sonner';
+import { useProjectListQuery } from '@/queries/useProjectQuery';
+import { useDashboardProjectStore } from '@/stores/usedashboardStore';
 
-const dummyTeamData = [
-  {
-    name: 'Project Taskcord',
-    logo: GalleryVerticalEnd,
-    plan: 'Enterprise',
-  },
-  {
-    name: 'Mission Hunt',
-    logo: AudioWaveform,
-    plan: 'Pro',
-  },
-  {
-    name: 'What is life',
-    logo: Command,
-    plan: 'Free',
-  },
-];
-
-export function TeamSwitcher() {
-  const [teams] = React.useState(dummyTeamData);
+export function ProjectSwitcher() {
+  const { data, isLoading, isError } = useProjectListQuery();
+  const { updatedSelectedProject, selectedProject } = useDashboardProjectStore();
+  const projectList = data?.projects || [];
   const { isMobile } = useSidebar();
-  const [activeTeam, setActiveTeam] = React.useState(teams[0]);
+
+  if (isLoading) {
+    return <div className="h-full w-full animate-pulse bg-gray-600">loading</div>;
+  }
+  if (isError) {
+    toast({
+      title: 'Failed',
+      description: 'Failed to fetch projects',
+      toastType: 'destructive',
+    });
+  }
 
   return (
     <SidebarMenu>
@@ -50,11 +46,11 @@ export function TeamSwitcher() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <activeTeam.logo className="size-4" />
+                <BoxSelect className="size-4" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{activeTeam.name}</span>
-                <span className="truncate text-xs">{activeTeam.plan}</span>
+                <span className="truncate font-semibold">{selectedProject?.title}</span>
+                <span className="truncate text-xs">{selectedProject?.status}</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -68,16 +64,17 @@ export function TeamSwitcher() {
             <DropdownMenuLabel className="text-xs text-muted-foreground">
               Projects you are a part of
             </DropdownMenuLabel>
-            {teams.map((team, index) => (
+            {projectList.map((project, index) => (
               <DropdownMenuItem
-                key={team.name}
-                onClick={() => setActiveTeam(team)}
+                key={project.title}
+                disabled={selectedProject?.id === project.id}
+                onClick={() => updatedSelectedProject(project)}
                 className="gap-2 p-2"
               >
                 <div className="flex size-6 items-center justify-center rounded-sm border">
-                  <team.logo className="size-4 shrink-0" />
+                  <BoxSelect className="size-4 shrink-0" />
                 </div>
-                {team.name}
+                {project.title}
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}
