@@ -7,7 +7,7 @@ interface LandingDashboardCardProps {
   icon?: JSX.Element;
 }
 
-export const LandingDashboardCard: FC<LandingDashboardCardProps> = ({ title, statData, icon }) => {
+export const OverviewCard: FC<LandingDashboardCardProps> = ({ title, statData, icon }) => {
   return (
     <Card className="relative flex flex-1 justify-around gap-2 overflow-hidden p-4">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,#000000_0%,#1F1F1F_100%)]"></div>

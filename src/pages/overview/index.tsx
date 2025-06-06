@@ -3,7 +3,7 @@ import { useProjectListQuery } from '@/queries/useProjectQuery';
 import { CircleCheckBig, FolderKanban, GitPullRequestDraft, ListTodo } from 'lucide-react';
 import { ActiveProjects } from './ActiveProjects';
 import { EmptyDashboard } from './EmptyDashboard';
-import { LandingDashboardCard } from './LandingDashboardCard';
+import { OverviewCard } from './OverviewCard';
 import { DashboardProjectList } from './ProjectList';
 
 export const OverviewDashboard = () => {
@@ -21,22 +21,22 @@ export const OverviewDashboard = () => {
     <div className="flex h-full w-full flex-col gap-8 bg-background p-8">
       <h1 className="text-2xl font-semibold">Welcome Back, {userName}!</h1>
       <div className="grid w-full grid-cols-4 gap-3">
-        <LandingDashboardCard
+        <OverviewCard
           title="Total Projects"
           statData={projectList?.length || 0}
           icon={<FolderKanban className="size-10 text-muted-foreground" />}
         />
-        <LandingDashboardCard
+        <OverviewCard
           title="Completed"
           statData={15}
           icon={<CircleCheckBig className="size-10 text-muted-foreground" />}
         />
-        <LandingDashboardCard
+        <OverviewCard
           title="In Progress"
           statData={15}
           icon={<GitPullRequestDraft className="size-10 text-muted-foreground" />}
         />
-        <LandingDashboardCard
+        <OverviewCard
           title="In Todo"
           statData={15}
           icon={<ListTodo className="size-10 text-muted-foreground" />}

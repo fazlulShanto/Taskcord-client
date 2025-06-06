@@ -8,7 +8,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from '@/components/ui/sidebar';
+} from '@components/ui/sidebar';
 import { useMatchRoute, useNavigate } from '@tanstack/react-router';
 import { Cable, ChevronRight, LayoutDashboard, ListTodo, Settings } from 'lucide-react';
 import { FC } from 'react';
