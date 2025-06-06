@@ -1,5 +1,3 @@
-'use client';
-
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   SidebarGroup,
@@ -11,7 +9,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
-import { useNavigate } from '@tanstack/react-router';
+import { useMatchRoute, useNavigate } from '@tanstack/react-router';
 import { Cable, ChevronRight, LayoutDashboard, ListTodo, Settings } from 'lucide-react';
 import { FC } from 'react';
 
@@ -65,7 +63,18 @@ export const NavMain: FC<NavMainItemProps> = ({
   hideLabel = false,
 }) => {
   const navigate = useNavigate();
+  const matchRoute = useMatchRoute();
   const items = Array.isArray(navbarData) && navbarData.length ? navbarData : NavbarData;
+
+  const matchedRoute = items
+    .filter((navItem) => {
+      try {
+        return !!matchRoute({ to: navItem.url, fuzzy: true });
+      } catch {
+        return false;
+      }
+    })
+    ?.at(0);
 
   const renderCollapsibleNabItem = (item: (typeof items)[0]) => {
     return (
@@ -104,7 +113,11 @@ export const NavMain: FC<NavMainItemProps> = ({
   const renderSidebarMenuItem = (item: (typeof items)[0]) => {
     return (
       <SidebarMenuItem key={item.title}>
-        <SidebarMenuButton tooltip={item.title} onClick={() => navigate({ to: item?.url })}>
+        <SidebarMenuButton
+          isActive={item.url === matchedRoute?.url}
+          tooltip={item.title}
+          onClick={() => navigate({ to: item?.url })}
+        >
           {item.icon && <item.icon />}
           <span>{item.title}</span>
         </SidebarMenuButton>
