@@ -43,12 +43,16 @@ const getNavbarDataWithProjectId = (projectId: string | undefined) => {
       icon: Settings,
       items: [
         {
-          title: 'Project Informations',
-          url: `/project/${projectId}/settings#project-info`,
+          title: 'Team Informations',
+          url: `/project/${projectId}/settings/team-info`,
         },
         {
           title: 'Member Management',
-          url: `/project/${projectId}/settings#manage-team-member`,
+          url: `/project/${projectId}/settings/member-management`,
+        },
+        {
+          title: 'Task Settings',
+          url: `/project/${projectId}/settings/task-settings`,
         },
       ],
     },

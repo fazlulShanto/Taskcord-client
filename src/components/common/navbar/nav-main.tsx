@@ -9,10 +9,9 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@components/ui/sidebar';
-import { useMatchRoute, useNavigate } from '@tanstack/react-router';
+import { Link, useMatchRoute, useNavigate } from '@tanstack/react-router';
 import { Cable, ChevronRight, LayoutDashboard, ListTodo, Settings } from 'lucide-react';
 import { FC } from 'react';
-
 const NavbarData = [
   {
     title: 'Dashboard',
@@ -97,9 +96,9 @@ export const NavMain: FC<NavMainItemProps> = ({
               {item.items?.map((subItem) => (
                 <SidebarMenuSubItem key={subItem.title}>
                   <SidebarMenuSubButton asChild>
-                    <a href={subItem.url}>
+                    <Link to={subItem.url}>
                       <span>{subItem.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
               ))}

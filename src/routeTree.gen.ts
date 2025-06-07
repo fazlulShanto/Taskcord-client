@@ -10,20 +10,23 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root';
-import { Route as PlaygroundImport } from './routes/playground';
-import { Route as AdminImport } from './routes/admin';
-import { Route as AboutImport } from './routes/about';
-import { Route as AuthGuardImport } from './routes/_authGuard';
-import { Route as IndexImport } from './routes/index';
-import { Route as AdminClockImport } from './routes/admin/clock';
-import { Route as AuthGuardOverviewImport } from './routes/_authGuard.overview';
-import { Route as AuthGuardOnboardingImport } from './routes/_authGuard.onboarding';
-import { Route as AuthGuardProjectProjectIdImport } from './routes/_authGuard.project/$projectId';
-import { Route as AuthGuardProjectProjectIdIndexImport } from './routes/_authGuard.project/$projectId/index';
-import { Route as AuthGuardProjectProjectIdTeamSettingsImport } from './routes/_authGuard.project/$projectId/team-settings';
-import { Route as AuthGuardProjectProjectIdTasksImport } from './routes/_authGuard.project/$projectId/tasks';
-import { Route as AuthGuardProjectProjectIdDashboardImport } from './routes/_authGuard.project/$projectId/dashboard';
+import { Route as rootRoute } from './routes/__root'
+import { Route as PlaygroundImport } from './routes/playground'
+import { Route as AdminImport } from './routes/admin'
+import { Route as AboutImport } from './routes/about'
+import { Route as AuthGuardImport } from './routes/_authGuard'
+import { Route as IndexImport } from './routes/index'
+import { Route as AdminClockImport } from './routes/admin/clock'
+import { Route as AuthGuardOverviewImport } from './routes/_authGuard.overview'
+import { Route as AuthGuardOnboardingImport } from './routes/_authGuard.onboarding'
+import { Route as AuthGuardProjectProjectIdImport } from './routes/_authGuard.project/$projectId'
+import { Route as AuthGuardProjectProjectIdIndexImport } from './routes/_authGuard.project/$projectId/index'
+import { Route as AuthGuardProjectProjectIdTeamSettingsImport } from './routes/_authGuard.project/$projectId/team-settings'
+import { Route as AuthGuardProjectProjectIdTasksImport } from './routes/_authGuard.project/$projectId/tasks'
+import { Route as AuthGuardProjectProjectIdDashboardImport } from './routes/_authGuard.project/$projectId/dashboard'
+import { Route as AuthGuardProjectProjectIdSettingsTeamInfoImport } from './routes/_authGuard.project/$projectId/settings/team-info'
+import { Route as AuthGuardProjectProjectIdSettingsTaskSettingsImport } from './routes/_authGuard.project/$projectId/settings/task-settings'
+import { Route as AuthGuardProjectProjectIdSettingsMemberManagementImport } from './routes/_authGuard.project/$projectId/settings/member-management'
 
 // Create/Update Routes
 
@@ -31,272 +34,341 @@ const PlaygroundRoute = PlaygroundImport.update({
   id: '/playground',
   path: '/playground',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const AdminRoute = AdminImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const AboutRoute = AboutImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const AuthGuardRoute = AuthGuardImport.update({
   id: '/_authGuard',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const AdminClockRoute = AdminClockImport.update({
   id: '/clock',
   path: '/clock',
   getParentRoute: () => AdminRoute,
-} as any);
+} as any)
 
 const AuthGuardOverviewRoute = AuthGuardOverviewImport.update({
   id: '/overview',
   path: '/overview',
   getParentRoute: () => AuthGuardRoute,
-} as any);
+} as any)
 
 const AuthGuardOnboardingRoute = AuthGuardOnboardingImport.update({
   id: '/onboarding',
   path: '/onboarding',
   getParentRoute: () => AuthGuardRoute,
-} as any);
+} as any)
 
 const AuthGuardProjectProjectIdRoute = AuthGuardProjectProjectIdImport.update({
   id: '/project/$projectId',
   path: '/project/$projectId',
   getParentRoute: () => AuthGuardRoute,
-} as any);
+} as any)
 
-const AuthGuardProjectProjectIdIndexRoute = AuthGuardProjectProjectIdIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AuthGuardProjectProjectIdRoute,
-} as any);
+const AuthGuardProjectProjectIdIndexRoute =
+  AuthGuardProjectProjectIdIndexImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthGuardProjectProjectIdRoute,
+  } as any)
 
 const AuthGuardProjectProjectIdTeamSettingsRoute =
   AuthGuardProjectProjectIdTeamSettingsImport.update({
     id: '/team-settings',
     path: '/team-settings',
     getParentRoute: () => AuthGuardProjectProjectIdRoute,
-  } as any);
+  } as any)
 
-const AuthGuardProjectProjectIdTasksRoute = AuthGuardProjectProjectIdTasksImport.update({
-  id: '/tasks',
-  path: '/tasks',
-  getParentRoute: () => AuthGuardProjectProjectIdRoute,
-} as any);
+const AuthGuardProjectProjectIdTasksRoute =
+  AuthGuardProjectProjectIdTasksImport.update({
+    id: '/tasks',
+    path: '/tasks',
+    getParentRoute: () => AuthGuardProjectProjectIdRoute,
+  } as any)
 
-const AuthGuardProjectProjectIdDashboardRoute = AuthGuardProjectProjectIdDashboardImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => AuthGuardProjectProjectIdRoute,
-} as any);
+const AuthGuardProjectProjectIdDashboardRoute =
+  AuthGuardProjectProjectIdDashboardImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => AuthGuardProjectProjectIdRoute,
+  } as any)
+
+const AuthGuardProjectProjectIdSettingsTeamInfoRoute =
+  AuthGuardProjectProjectIdSettingsTeamInfoImport.update({
+    id: '/settings/team-info',
+    path: '/settings/team-info',
+    getParentRoute: () => AuthGuardProjectProjectIdRoute,
+  } as any)
+
+const AuthGuardProjectProjectIdSettingsTaskSettingsRoute =
+  AuthGuardProjectProjectIdSettingsTaskSettingsImport.update({
+    id: '/settings/task-settings',
+    path: '/settings/task-settings',
+    getParentRoute: () => AuthGuardProjectProjectIdRoute,
+  } as any)
+
+const AuthGuardProjectProjectIdSettingsMemberManagementRoute =
+  AuthGuardProjectProjectIdSettingsMemberManagementImport.update({
+    id: '/settings/member-management',
+    path: '/settings/member-management',
+    getParentRoute: () => AuthGuardProjectProjectIdRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
     '/_authGuard': {
-      id: '/_authGuard';
-      path: '';
-      fullPath: '';
-      preLoaderRoute: typeof AuthGuardImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/_authGuard'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthGuardImport
+      parentRoute: typeof rootRoute
+    }
     '/about': {
-      id: '/about';
-      path: '/about';
-      fullPath: '/about';
-      preLoaderRoute: typeof AboutImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutImport
+      parentRoute: typeof rootRoute
+    }
     '/admin': {
-      id: '/admin';
-      path: '/admin';
-      fullPath: '/admin';
-      preLoaderRoute: typeof AdminImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminImport
+      parentRoute: typeof rootRoute
+    }
     '/playground': {
-      id: '/playground';
-      path: '/playground';
-      fullPath: '/playground';
-      preLoaderRoute: typeof PlaygroundImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/playground'
+      path: '/playground'
+      fullPath: '/playground'
+      preLoaderRoute: typeof PlaygroundImport
+      parentRoute: typeof rootRoute
+    }
     '/_authGuard/onboarding': {
-      id: '/_authGuard/onboarding';
-      path: '/onboarding';
-      fullPath: '/onboarding';
-      preLoaderRoute: typeof AuthGuardOnboardingImport;
-      parentRoute: typeof AuthGuardImport;
-    };
+      id: '/_authGuard/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof AuthGuardOnboardingImport
+      parentRoute: typeof AuthGuardImport
+    }
     '/_authGuard/overview': {
-      id: '/_authGuard/overview';
-      path: '/overview';
-      fullPath: '/overview';
-      preLoaderRoute: typeof AuthGuardOverviewImport;
-      parentRoute: typeof AuthGuardImport;
-    };
+      id: '/_authGuard/overview'
+      path: '/overview'
+      fullPath: '/overview'
+      preLoaderRoute: typeof AuthGuardOverviewImport
+      parentRoute: typeof AuthGuardImport
+    }
     '/admin/clock': {
-      id: '/admin/clock';
-      path: '/clock';
-      fullPath: '/admin/clock';
-      preLoaderRoute: typeof AdminClockImport;
-      parentRoute: typeof AdminImport;
-    };
+      id: '/admin/clock'
+      path: '/clock'
+      fullPath: '/admin/clock'
+      preLoaderRoute: typeof AdminClockImport
+      parentRoute: typeof AdminImport
+    }
     '/_authGuard/project/$projectId': {
-      id: '/_authGuard/project/$projectId';
-      path: '/project/$projectId';
-      fullPath: '/project/$projectId';
-      preLoaderRoute: typeof AuthGuardProjectProjectIdImport;
-      parentRoute: typeof AuthGuardImport;
-    };
+      id: '/_authGuard/project/$projectId'
+      path: '/project/$projectId'
+      fullPath: '/project/$projectId'
+      preLoaderRoute: typeof AuthGuardProjectProjectIdImport
+      parentRoute: typeof AuthGuardImport
+    }
     '/_authGuard/project/$projectId/dashboard': {
-      id: '/_authGuard/project/$projectId/dashboard';
-      path: '/dashboard';
-      fullPath: '/project/$projectId/dashboard';
-      preLoaderRoute: typeof AuthGuardProjectProjectIdDashboardImport;
-      parentRoute: typeof AuthGuardProjectProjectIdImport;
-    };
+      id: '/_authGuard/project/$projectId/dashboard'
+      path: '/dashboard'
+      fullPath: '/project/$projectId/dashboard'
+      preLoaderRoute: typeof AuthGuardProjectProjectIdDashboardImport
+      parentRoute: typeof AuthGuardProjectProjectIdImport
+    }
     '/_authGuard/project/$projectId/tasks': {
-      id: '/_authGuard/project/$projectId/tasks';
-      path: '/tasks';
-      fullPath: '/project/$projectId/tasks';
-      preLoaderRoute: typeof AuthGuardProjectProjectIdTasksImport;
-      parentRoute: typeof AuthGuardProjectProjectIdImport;
-    };
+      id: '/_authGuard/project/$projectId/tasks'
+      path: '/tasks'
+      fullPath: '/project/$projectId/tasks'
+      preLoaderRoute: typeof AuthGuardProjectProjectIdTasksImport
+      parentRoute: typeof AuthGuardProjectProjectIdImport
+    }
     '/_authGuard/project/$projectId/team-settings': {
-      id: '/_authGuard/project/$projectId/team-settings';
-      path: '/team-settings';
-      fullPath: '/project/$projectId/team-settings';
-      preLoaderRoute: typeof AuthGuardProjectProjectIdTeamSettingsImport;
-      parentRoute: typeof AuthGuardProjectProjectIdImport;
-    };
+      id: '/_authGuard/project/$projectId/team-settings'
+      path: '/team-settings'
+      fullPath: '/project/$projectId/team-settings'
+      preLoaderRoute: typeof AuthGuardProjectProjectIdTeamSettingsImport
+      parentRoute: typeof AuthGuardProjectProjectIdImport
+    }
     '/_authGuard/project/$projectId/': {
-      id: '/_authGuard/project/$projectId/';
-      path: '/';
-      fullPath: '/project/$projectId/';
-      preLoaderRoute: typeof AuthGuardProjectProjectIdIndexImport;
-      parentRoute: typeof AuthGuardProjectProjectIdImport;
-    };
+      id: '/_authGuard/project/$projectId/'
+      path: '/'
+      fullPath: '/project/$projectId/'
+      preLoaderRoute: typeof AuthGuardProjectProjectIdIndexImport
+      parentRoute: typeof AuthGuardProjectProjectIdImport
+    }
+    '/_authGuard/project/$projectId/settings/member-management': {
+      id: '/_authGuard/project/$projectId/settings/member-management'
+      path: '/settings/member-management'
+      fullPath: '/project/$projectId/settings/member-management'
+      preLoaderRoute: typeof AuthGuardProjectProjectIdSettingsMemberManagementImport
+      parentRoute: typeof AuthGuardProjectProjectIdImport
+    }
+    '/_authGuard/project/$projectId/settings/task-settings': {
+      id: '/_authGuard/project/$projectId/settings/task-settings'
+      path: '/settings/task-settings'
+      fullPath: '/project/$projectId/settings/task-settings'
+      preLoaderRoute: typeof AuthGuardProjectProjectIdSettingsTaskSettingsImport
+      parentRoute: typeof AuthGuardProjectProjectIdImport
+    }
+    '/_authGuard/project/$projectId/settings/team-info': {
+      id: '/_authGuard/project/$projectId/settings/team-info'
+      path: '/settings/team-info'
+      fullPath: '/project/$projectId/settings/team-info'
+      preLoaderRoute: typeof AuthGuardProjectProjectIdSettingsTeamInfoImport
+      parentRoute: typeof AuthGuardProjectProjectIdImport
+    }
   }
 }
 
 // Create and export the route tree
 
 interface AuthGuardProjectProjectIdRouteChildren {
-  AuthGuardProjectProjectIdDashboardRoute: typeof AuthGuardProjectProjectIdDashboardRoute;
-  AuthGuardProjectProjectIdTasksRoute: typeof AuthGuardProjectProjectIdTasksRoute;
-  AuthGuardProjectProjectIdTeamSettingsRoute: typeof AuthGuardProjectProjectIdTeamSettingsRoute;
-  AuthGuardProjectProjectIdIndexRoute: typeof AuthGuardProjectProjectIdIndexRoute;
+  AuthGuardProjectProjectIdDashboardRoute: typeof AuthGuardProjectProjectIdDashboardRoute
+  AuthGuardProjectProjectIdTasksRoute: typeof AuthGuardProjectProjectIdTasksRoute
+  AuthGuardProjectProjectIdTeamSettingsRoute: typeof AuthGuardProjectProjectIdTeamSettingsRoute
+  AuthGuardProjectProjectIdIndexRoute: typeof AuthGuardProjectProjectIdIndexRoute
+  AuthGuardProjectProjectIdSettingsMemberManagementRoute: typeof AuthGuardProjectProjectIdSettingsMemberManagementRoute
+  AuthGuardProjectProjectIdSettingsTaskSettingsRoute: typeof AuthGuardProjectProjectIdSettingsTaskSettingsRoute
+  AuthGuardProjectProjectIdSettingsTeamInfoRoute: typeof AuthGuardProjectProjectIdSettingsTeamInfoRoute
 }
 
-const AuthGuardProjectProjectIdRouteChildren: AuthGuardProjectProjectIdRouteChildren = {
-  AuthGuardProjectProjectIdDashboardRoute: AuthGuardProjectProjectIdDashboardRoute,
-  AuthGuardProjectProjectIdTasksRoute: AuthGuardProjectProjectIdTasksRoute,
-  AuthGuardProjectProjectIdTeamSettingsRoute: AuthGuardProjectProjectIdTeamSettingsRoute,
-  AuthGuardProjectProjectIdIndexRoute: AuthGuardProjectProjectIdIndexRoute,
-};
+const AuthGuardProjectProjectIdRouteChildren: AuthGuardProjectProjectIdRouteChildren =
+  {
+    AuthGuardProjectProjectIdDashboardRoute:
+      AuthGuardProjectProjectIdDashboardRoute,
+    AuthGuardProjectProjectIdTasksRoute: AuthGuardProjectProjectIdTasksRoute,
+    AuthGuardProjectProjectIdTeamSettingsRoute:
+      AuthGuardProjectProjectIdTeamSettingsRoute,
+    AuthGuardProjectProjectIdIndexRoute: AuthGuardProjectProjectIdIndexRoute,
+    AuthGuardProjectProjectIdSettingsMemberManagementRoute:
+      AuthGuardProjectProjectIdSettingsMemberManagementRoute,
+    AuthGuardProjectProjectIdSettingsTaskSettingsRoute:
+      AuthGuardProjectProjectIdSettingsTaskSettingsRoute,
+    AuthGuardProjectProjectIdSettingsTeamInfoRoute:
+      AuthGuardProjectProjectIdSettingsTeamInfoRoute,
+  }
 
-const AuthGuardProjectProjectIdRouteWithChildren = AuthGuardProjectProjectIdRoute._addFileChildren(
-  AuthGuardProjectProjectIdRouteChildren
-);
+const AuthGuardProjectProjectIdRouteWithChildren =
+  AuthGuardProjectProjectIdRoute._addFileChildren(
+    AuthGuardProjectProjectIdRouteChildren,
+  )
 
 interface AuthGuardRouteChildren {
-  AuthGuardOnboardingRoute: typeof AuthGuardOnboardingRoute;
-  AuthGuardOverviewRoute: typeof AuthGuardOverviewRoute;
-  AuthGuardProjectProjectIdRoute: typeof AuthGuardProjectProjectIdRouteWithChildren;
+  AuthGuardOnboardingRoute: typeof AuthGuardOnboardingRoute
+  AuthGuardOverviewRoute: typeof AuthGuardOverviewRoute
+  AuthGuardProjectProjectIdRoute: typeof AuthGuardProjectProjectIdRouteWithChildren
 }
 
 const AuthGuardRouteChildren: AuthGuardRouteChildren = {
   AuthGuardOnboardingRoute: AuthGuardOnboardingRoute,
   AuthGuardOverviewRoute: AuthGuardOverviewRoute,
   AuthGuardProjectProjectIdRoute: AuthGuardProjectProjectIdRouteWithChildren,
-};
+}
 
-const AuthGuardRouteWithChildren = AuthGuardRoute._addFileChildren(AuthGuardRouteChildren);
+const AuthGuardRouteWithChildren = AuthGuardRoute._addFileChildren(
+  AuthGuardRouteChildren,
+)
 
 interface AdminRouteChildren {
-  AdminClockRoute: typeof AdminClockRoute;
+  AdminClockRoute: typeof AdminClockRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminClockRoute: AdminClockRoute,
-};
+}
 
-const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren);
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute;
-  '': typeof AuthGuardRouteWithChildren;
-  '/about': typeof AboutRoute;
-  '/admin': typeof AdminRouteWithChildren;
-  '/playground': typeof PlaygroundRoute;
-  '/onboarding': typeof AuthGuardOnboardingRoute;
-  '/overview': typeof AuthGuardOverviewRoute;
-  '/admin/clock': typeof AdminClockRoute;
-  '/project/$projectId': typeof AuthGuardProjectProjectIdRouteWithChildren;
-  '/project/$projectId/dashboard': typeof AuthGuardProjectProjectIdDashboardRoute;
-  '/project/$projectId/tasks': typeof AuthGuardProjectProjectIdTasksRoute;
-  '/project/$projectId/team-settings': typeof AuthGuardProjectProjectIdTeamSettingsRoute;
-  '/project/$projectId/': typeof AuthGuardProjectProjectIdIndexRoute;
+  '/': typeof IndexRoute
+  '': typeof AuthGuardRouteWithChildren
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/playground': typeof PlaygroundRoute
+  '/onboarding': typeof AuthGuardOnboardingRoute
+  '/overview': typeof AuthGuardOverviewRoute
+  '/admin/clock': typeof AdminClockRoute
+  '/project/$projectId': typeof AuthGuardProjectProjectIdRouteWithChildren
+  '/project/$projectId/dashboard': typeof AuthGuardProjectProjectIdDashboardRoute
+  '/project/$projectId/tasks': typeof AuthGuardProjectProjectIdTasksRoute
+  '/project/$projectId/team-settings': typeof AuthGuardProjectProjectIdTeamSettingsRoute
+  '/project/$projectId/': typeof AuthGuardProjectProjectIdIndexRoute
+  '/project/$projectId/settings/member-management': typeof AuthGuardProjectProjectIdSettingsMemberManagementRoute
+  '/project/$projectId/settings/task-settings': typeof AuthGuardProjectProjectIdSettingsTaskSettingsRoute
+  '/project/$projectId/settings/team-info': typeof AuthGuardProjectProjectIdSettingsTeamInfoRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute;
-  '': typeof AuthGuardRouteWithChildren;
-  '/about': typeof AboutRoute;
-  '/admin': typeof AdminRouteWithChildren;
-  '/playground': typeof PlaygroundRoute;
-  '/onboarding': typeof AuthGuardOnboardingRoute;
-  '/overview': typeof AuthGuardOverviewRoute;
-  '/admin/clock': typeof AdminClockRoute;
-  '/project/$projectId/dashboard': typeof AuthGuardProjectProjectIdDashboardRoute;
-  '/project/$projectId/tasks': typeof AuthGuardProjectProjectIdTasksRoute;
-  '/project/$projectId/team-settings': typeof AuthGuardProjectProjectIdTeamSettingsRoute;
-  '/project/$projectId': typeof AuthGuardProjectProjectIdIndexRoute;
+  '/': typeof IndexRoute
+  '': typeof AuthGuardRouteWithChildren
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/playground': typeof PlaygroundRoute
+  '/onboarding': typeof AuthGuardOnboardingRoute
+  '/overview': typeof AuthGuardOverviewRoute
+  '/admin/clock': typeof AdminClockRoute
+  '/project/$projectId/dashboard': typeof AuthGuardProjectProjectIdDashboardRoute
+  '/project/$projectId/tasks': typeof AuthGuardProjectProjectIdTasksRoute
+  '/project/$projectId/team-settings': typeof AuthGuardProjectProjectIdTeamSettingsRoute
+  '/project/$projectId': typeof AuthGuardProjectProjectIdIndexRoute
+  '/project/$projectId/settings/member-management': typeof AuthGuardProjectProjectIdSettingsMemberManagementRoute
+  '/project/$projectId/settings/task-settings': typeof AuthGuardProjectProjectIdSettingsTaskSettingsRoute
+  '/project/$projectId/settings/team-info': typeof AuthGuardProjectProjectIdSettingsTeamInfoRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  '/': typeof IndexRoute;
-  '/_authGuard': typeof AuthGuardRouteWithChildren;
-  '/about': typeof AboutRoute;
-  '/admin': typeof AdminRouteWithChildren;
-  '/playground': typeof PlaygroundRoute;
-  '/_authGuard/onboarding': typeof AuthGuardOnboardingRoute;
-  '/_authGuard/overview': typeof AuthGuardOverviewRoute;
-  '/admin/clock': typeof AdminClockRoute;
-  '/_authGuard/project/$projectId': typeof AuthGuardProjectProjectIdRouteWithChildren;
-  '/_authGuard/project/$projectId/dashboard': typeof AuthGuardProjectProjectIdDashboardRoute;
-  '/_authGuard/project/$projectId/tasks': typeof AuthGuardProjectProjectIdTasksRoute;
-  '/_authGuard/project/$projectId/team-settings': typeof AuthGuardProjectProjectIdTeamSettingsRoute;
-  '/_authGuard/project/$projectId/': typeof AuthGuardProjectProjectIdIndexRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/_authGuard': typeof AuthGuardRouteWithChildren
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/playground': typeof PlaygroundRoute
+  '/_authGuard/onboarding': typeof AuthGuardOnboardingRoute
+  '/_authGuard/overview': typeof AuthGuardOverviewRoute
+  '/admin/clock': typeof AdminClockRoute
+  '/_authGuard/project/$projectId': typeof AuthGuardProjectProjectIdRouteWithChildren
+  '/_authGuard/project/$projectId/dashboard': typeof AuthGuardProjectProjectIdDashboardRoute
+  '/_authGuard/project/$projectId/tasks': typeof AuthGuardProjectProjectIdTasksRoute
+  '/_authGuard/project/$projectId/team-settings': typeof AuthGuardProjectProjectIdTeamSettingsRoute
+  '/_authGuard/project/$projectId/': typeof AuthGuardProjectProjectIdIndexRoute
+  '/_authGuard/project/$projectId/settings/member-management': typeof AuthGuardProjectProjectIdSettingsMemberManagementRoute
+  '/_authGuard/project/$projectId/settings/task-settings': typeof AuthGuardProjectProjectIdSettingsTaskSettingsRoute
+  '/_authGuard/project/$projectId/settings/team-info': typeof AuthGuardProjectProjectIdSettingsTeamInfoRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | ''
@@ -310,8 +382,11 @@ export interface FileRouteTypes {
     | '/project/$projectId/dashboard'
     | '/project/$projectId/tasks'
     | '/project/$projectId/team-settings'
-    | '/project/$projectId/';
-  fileRoutesByTo: FileRoutesByTo;
+    | '/project/$projectId/'
+    | '/project/$projectId/settings/member-management'
+    | '/project/$projectId/settings/task-settings'
+    | '/project/$projectId/settings/team-info'
+  fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | ''
@@ -324,7 +399,10 @@ export interface FileRouteTypes {
     | '/project/$projectId/dashboard'
     | '/project/$projectId/tasks'
     | '/project/$projectId/team-settings'
-    | '/project/$projectId';
+    | '/project/$projectId'
+    | '/project/$projectId/settings/member-management'
+    | '/project/$projectId/settings/task-settings'
+    | '/project/$projectId/settings/team-info'
   id:
     | '__root__'
     | '/'
@@ -339,16 +417,19 @@ export interface FileRouteTypes {
     | '/_authGuard/project/$projectId/dashboard'
     | '/_authGuard/project/$projectId/tasks'
     | '/_authGuard/project/$projectId/team-settings'
-    | '/_authGuard/project/$projectId/';
-  fileRoutesById: FileRoutesById;
+    | '/_authGuard/project/$projectId/'
+    | '/_authGuard/project/$projectId/settings/member-management'
+    | '/_authGuard/project/$projectId/settings/task-settings'
+    | '/_authGuard/project/$projectId/settings/team-info'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  AuthGuardRoute: typeof AuthGuardRouteWithChildren;
-  AboutRoute: typeof AboutRoute;
-  AdminRoute: typeof AdminRouteWithChildren;
-  PlaygroundRoute: typeof PlaygroundRoute;
+  IndexRoute: typeof IndexRoute
+  AuthGuardRoute: typeof AuthGuardRouteWithChildren
+  AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  PlaygroundRoute: typeof PlaygroundRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -357,11 +438,11 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
   PlaygroundRoute: PlaygroundRoute,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -418,7 +499,10 @@ export const routeTree = rootRoute
         "/_authGuard/project/$projectId/dashboard",
         "/_authGuard/project/$projectId/tasks",
         "/_authGuard/project/$projectId/team-settings",
-        "/_authGuard/project/$projectId/"
+        "/_authGuard/project/$projectId/",
+        "/_authGuard/project/$projectId/settings/member-management",
+        "/_authGuard/project/$projectId/settings/task-settings",
+        "/_authGuard/project/$projectId/settings/team-info"
       ]
     },
     "/_authGuard/project/$projectId/dashboard": {
@@ -435,6 +519,18 @@ export const routeTree = rootRoute
     },
     "/_authGuard/project/$projectId/": {
       "filePath": "_authGuard.project/$projectId/index.tsx",
+      "parent": "/_authGuard/project/$projectId"
+    },
+    "/_authGuard/project/$projectId/settings/member-management": {
+      "filePath": "_authGuard.project/$projectId/settings/member-management.tsx",
+      "parent": "/_authGuard/project/$projectId"
+    },
+    "/_authGuard/project/$projectId/settings/task-settings": {
+      "filePath": "_authGuard.project/$projectId/settings/task-settings.tsx",
+      "parent": "/_authGuard/project/$projectId"
+    },
+    "/_authGuard/project/$projectId/settings/team-info": {
+      "filePath": "_authGuard.project/$projectId/settings/team-info.tsx",
       "parent": "/_authGuard/project/$projectId"
     }
   }
