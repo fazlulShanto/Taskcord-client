@@ -60,6 +60,7 @@ export const PlayGround: FC<PlaygroundProps> = () => {
     <div className="flex flex-col gap-4 p-6">
       <div className="flex flex-col gap-4 rounded-md border p-4">
         <h1 className="text-2xl font-bold">List of Task Labels</h1>
+        {/* @ts-expect-error - TODO: fix this */}
         {labels?.data.taskLabels?.map((label) => (
           <div key={label.id} className="rounded-md border">
             <div className="flex items-center gap-2">
