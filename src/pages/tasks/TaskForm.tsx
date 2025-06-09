@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { PlayGround } from '../playground';
 
 // Form Schema based on Task type
 const taskFormSchema = z.object({
@@ -84,11 +85,11 @@ export const TaskForm = () => {
           <FormField
             control={form.control}
             name="label"
-            render={({ field }) => (
+            render={() => (
               <FormItem>
                 <FormLabel>Label</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter label" {...field} />
+                  <PlayGround />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -24,7 +24,7 @@ const _FormSchema = z.object({
 
 export const CreateTask: FC<CreateTaskProps> = () => {
   return (
-    <Sheet>
+    <Sheet modal={false}>
       <SheetTrigger asChild>
         <Button>
           <Plus
@@ -35,15 +35,15 @@ export const CreateTask: FC<CreateTaskProps> = () => {
         </Button>
       </SheetTrigger>
       <SheetContent
-        className="w-full max-w-lg sm:max-w-2xl"
+        className="w-full max-w-lg overflow-y-scroll p-0 sm:max-w-2xl"
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
       >
-        <SheetHeader className="border-b">
+        <SheetHeader className="border-b px-4 py-1.5">
           <SheetTitle>Create New Task</SheetTitle>
           <SheetDescription></SheetDescription>
         </SheetHeader>
-        <div className="grid gap-4 py-4">
+        <div className="grid gap-4 p-4">
           <TaskForm />
         </div>
       </SheetContent>

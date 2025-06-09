@@ -30,6 +30,14 @@ export const APIs = {
     botServerVerification: (serverId: string) =>
       `${API_URL}/api/edge/project/${serverId}/is-bot-in-server`,
   },
+  label: {
+    getAllLabels: (projectId: string) => `${API_URL}/api/edge/projects/${projectId}/labels`,
+    createLabel: (projectId: string) => `${API_URL}/api/edge/projects/${projectId}/labels`,
+    updateLabel: (projectId: string, labelId: string) =>
+      `${API_URL}/api/edge/projects/${projectId}/labels/${labelId}`,
+    deleteLabel: (projectId: string, labelId: string) =>
+      `${API_URL}/api/edge/projects/${projectId}/labels/${labelId}`,
+  },
   utility: {
     cookies: () => `${API_URL}/api/stable/utility/cookie-test`,
   },

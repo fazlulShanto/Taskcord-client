@@ -71,7 +71,7 @@ export function MultiSelect<TOption>({
       (p) => getOptionValue(p) !== getOptionValue(platform)
     );
     if (removedPlatformList.length === localSelectedOptionList.length) {
-      setLocalSelectedOptionList([...localSelectedOptionList, platform]);
+      setLocalSelectedOptionList((old) => [...old, platform]);
     } else {
       setLocalSelectedOptionList(removedPlatformList);
     }
@@ -101,7 +101,7 @@ export function MultiSelect<TOption>({
     try {
       setIsCreatingOption(true);
       const newOption = await onCreateOption(query);
-      setLocalSelectedOptionList([...localSelectedOptionList, newOption]);
+      setLocalSelectedOptionList((old) => [...old, newOption]);
       setSearchQuery('');
     } catch {
       toast({
