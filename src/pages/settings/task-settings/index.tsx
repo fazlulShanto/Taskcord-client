@@ -1,8 +1,8 @@
 import { Separator } from '@radix-ui/react-separator';
 import { useSearch } from '@tanstack/react-router';
+import { TaskStatusSettings } from './task-status';
 import { TaskLabels } from './TaskLabels';
 import TaskSettingsSidebar from './TaskSettingsSidebar';
-import { TaskStatus } from './TaskStatus';
 import { TaskTypes } from './TaskTypes';
 
 const TaskSettings = () => {
@@ -12,7 +12,7 @@ const TaskSettings = () => {
   const renderTaskSettingsContent = () => {
     switch (selectedTab) {
       case 'task-status':
-        return <TaskStatus />;
+        return <TaskStatusSettings />;
       case 'task-labels':
         return <TaskLabels />;
       case 'task-types':

@@ -14,3 +14,13 @@ export type Task = {
   createdBy: string;
   updatedBy: string;
 };
+
+export type TaskStatus = {
+  id: string; // UUID
+  name: string;
+  color: string; // Can be a hex code or color name
+  description: string;
+  projectId: string; // UUID
+  creatorId: string; // UUID
+  order: number;
+};

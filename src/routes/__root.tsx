@@ -1,8 +1,8 @@
 import ErrorBoundary from '@/components/ErrorBoundary';
 import PageNotFound from '@/components/PageNotFound';
+import type { QueryClient } from '@tanstack/react-query';
 import { Outlet, createRootRouteWithContext } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
-import type { QueryClient } from '@tanstack/react-query';
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -16,7 +16,7 @@ function RootComponent() {
   return (
     <>
       <Outlet />
-      {import.meta.env.DEV ? <TanStackRouterDevtools position="bottom-right" /> : null}
+      {import.meta.env.DEV ? <TanStackRouterDevtools position="bottom-left" /> : null}
     </>
   );
 }
