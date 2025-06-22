@@ -43,7 +43,7 @@ const TaskSettingsSidebar = ({ selectedTab }: TaskSettingsSidebarProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative h-full w-1/4 p-4">
+    <div className="relative h-full w-fit max-w-[25%] p-4">
       <Tabs value={selectedTab} orientation="vertical" className="mt-8 h-fit">
         <TabsList className="flex flex-col gap-2 bg-transparent">
           {taskSettingsSidebarData.map((item) => (
