@@ -1,5 +1,4 @@
 import { ClientDataTable } from '@/components/common/client-data-table';
-import { Button } from '@/components/ui/button';
 import { TaskStatus } from '@/types/tasks';
 import {
   getCoreRowModel,
@@ -8,6 +7,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { FC, useState } from 'react';
+import { TaskStatusModal } from './TaskStatusModal';
 import { taskStatusTableColumns } from './taskStatusTableColumns';
 
 interface TaskStatusSettingsProps {}
@@ -45,9 +45,7 @@ export const TaskStatusSettings: FC<TaskStatusSettingsProps> = () => {
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold"></h2>
-          <Button size="sm" className="h-7">
-            Add Status
-          </Button>
+          <TaskStatusModal />
         </div>
         <div className="rounded-md border">
           <ClientDataTable<TaskStatus> table={table} />

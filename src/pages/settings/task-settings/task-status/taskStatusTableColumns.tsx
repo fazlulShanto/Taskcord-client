@@ -8,6 +8,7 @@ export const taskStatusTableColumns: ColumnDef<TaskStatus>[] = [
     id: 'select',
     header: ({ table }) => (
       <Checkbox
+        disabled={table.getRowCount() === 0}
         checked={table.getIsAllRowsSelected()}
         onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
         aria-label="Select all"

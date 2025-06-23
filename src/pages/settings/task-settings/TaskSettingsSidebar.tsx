@@ -10,7 +10,7 @@ type TaskSettingsSidebarItem = {
 const taskSettingsSidebarData: TaskSettingsSidebarItem[] = [
   {
     label: 'Task Status',
-    icon: <CheckCircleIcon />,
+    icon: <RadioReceiver />,
     slug: 'task-status',
     href: '/settings/task-settings/task-status',
   },
@@ -37,20 +37,20 @@ type TaskSettingsSidebarProps = {
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { useNavigate } from '@tanstack/react-router';
-import { CheckCircleIcon } from 'lucide-react';
+import { CheckCircleIcon, RadioReceiver } from 'lucide-react';
 
 const TaskSettingsSidebar = ({ selectedTab }: TaskSettingsSidebarProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative h-full w-fit max-w-[25%] p-4">
+    <div className="relative h-full w-[25%] max-w-[200px] px-2 py-4">
       <Tabs value={selectedTab} orientation="vertical" className="mt-8 h-fit">
         <TabsList className="flex flex-col gap-2 bg-transparent">
           {taskSettingsSidebarData.map((item) => (
             <TabsTrigger
               key={item.slug}
               value={item.slug}
-              className={cn({
+              className={cn('w-full justify-start gap-2 font-semibold', {
                 'data-[state=active]:bg-sidebar-accent': selectedTab === item.slug,
               })}
               onClick={() => {
@@ -60,6 +60,7 @@ const TaskSettingsSidebar = ({ selectedTab }: TaskSettingsSidebarProps) => {
                 });
               }}
             >
+              {item.icon}
               {item.label}
             </TabsTrigger>
           ))}
