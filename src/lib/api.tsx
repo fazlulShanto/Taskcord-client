@@ -41,4 +41,12 @@ export const APIs = {
   utility: {
     cookies: () => `${API_URL}/api/stable/utility/cookie-test`,
   },
+  taskStatus: {
+    createTaskStatus: (projectId: string) => `${API_URL}/api/edge/projects/${projectId}/statuses`,
+    updateTaskStatus: (projectId: string, taskStatusId: string) =>
+      `${API_URL}/api/edge/projects/${projectId}/statuses/${taskStatusId}`,
+    deleteTaskStatus: (projectId: string) =>
+      `${API_URL}/api/edge/projects/${projectId}/statuses/bulk`,
+    getAllTaskStatuses: (projectId: string) => `${API_URL}/api/edge/projects/${projectId}/statuses`,
+  },
 };

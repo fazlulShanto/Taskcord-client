@@ -7,8 +7,9 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
-import { InboxIcon } from '@heroicons/react/24/outline';
+import { ArrowDownIcon, ArrowUpIcon, InboxIcon } from '@heroicons/react/24/outline';
 import { flexRender, Table } from '@tanstack/react-table';
+import { ArrowUpDownIcon } from 'lucide-react';
 import { DataTablePagination } from './pagination';
 
 interface ClientDataTableProps<TData> {
@@ -39,10 +40,27 @@ export const ClientDataTable = <TData,>({ table }: ClientDataTableProps<TData>) 
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} className="px-3">
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
+                  <TableHead
+                    key={header.id}
+                    className="px-3"
+                    onClick={() => {
+                      if (header.column.getCanSort()) {
+                        header.column.toggleSorting();
+                      }
+                    }}
+                  >
+                    <div className="flex items-center gap-0.5">
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(header.column.columnDef.header, header.getContext())}
+                      {header.column.getIsSorted() &&
+                        ({
+                          asc: <ArrowUpIcon className="size-4" />,
+                          desc: <ArrowDownIcon className="size-4" />,
+                        }[header.column.getIsSorted() as string] || (
+                          <ArrowUpDownIcon className="size-4" />
+                        ))}
+                    </div>
                   </TableHead>
                 );
               })}
