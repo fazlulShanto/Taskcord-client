@@ -19,15 +19,22 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { useAuthQuery } from '@/queries/useAuthQuery';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 export function NavUser() {
   const { data } = useAuthQuery();
+  const clearAuth = useAuthStore((state) => state.clearAuth);
 
   const userName = data?.fullName || data?.nickName || 'Annonymous User';
   const userLogo = data?.avatar;
   const userPlan = 'Free Plan';
   const userEmail = data?.email || '';
   const { isMobile } = useSidebar();
+
+  const handleLogout = () => {
+    clearAuth();
+    window.location.href = '/';
+  };
 
   const renderThemeToggler = () => {
     return (
@@ -108,7 +115,7 @@ export function NavUser() {
               <DropdownMenuItem>{renderThemeToggler()}</DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
               Log out
             </DropdownMenuItem>

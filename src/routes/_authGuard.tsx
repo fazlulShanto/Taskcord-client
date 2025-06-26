@@ -1,4 +1,5 @@
 import { AuthGuard } from '@/components/common/AuthGuard';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_authGuard')({
@@ -7,7 +8,10 @@ export const Route = createFileRoute('/_authGuard')({
     const authToken = new URLSearchParams(ctx.location.search).get('auth_token');
     if (authToken) {
       localStorage.setItem('token', authToken);
-      await new Promise((resolve) => setTimeout(resolve, 3 * 1000));
+      useAuthStore.setState({
+        isAuthenticated: true,
+        accessToken: authToken,
+      });
     }
     return true;
   },

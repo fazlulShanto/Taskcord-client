@@ -2,7 +2,7 @@ import { DiscordSignIn } from '@/components/common/discord-signin';
 import { Link } from '@tanstack/react-router';
 
 import { motion } from 'framer-motion';
-import { UsersIcon, ClockIcon, ChartBarIcon, ChartGanttIcon } from 'lucide-react';
+import { ChartBarIcon, ChartGanttIcon, ClockIcon, UsersIcon } from 'lucide-react';
 
 function LandingPage() {
   return (
@@ -54,14 +54,17 @@ function LandingPage() {
         >
           Get Started
         </motion.button>
-        <a
-          target="_blank"
-          href="http://localhost:5173/onboarding?auth_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNjb3JkSWQiOiI1MjEzMzA5NDgzODI2NTQ0ODciLCJmdWxsTmFtZSI6ImEuc2VocmlrIiwiYXZhdGFyIjoiZGQyMjE1YmQ3ZjM2NjM1Y2EyNTFiZTU1ZWZiNTEyNGIiLCJlbWFpbCI6ImFzZWhyaWtAZ21haWwuY29tIiwiaWQiOiIwMTk1ZTExMS05NDQyLTdkNjMtYjIzMS1kZjg1NmIxOGIyNjUiLCJpYXQiOjE3NDgxMTYxNDksImV4cCI6MTc0ODcyMDk0OX0.loneBrfv_nfIes7RmZudv_Meep2BO5aEgZuy6lD5RUc"
+        <Link
+          to={'/onboarding'}
+          search={{
+            auth_token:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNjb3JkSWQiOiI1MjEzMzA5NDgzODI2NTQ0ODciLCJmdWxsTmFtZSI6ImEuc2VocmlrIiwiYXZhdGFyIjoiZGQyMjE1YmQ3ZjM2NjM1Y2EyNTFiZTU1ZWZiNTEyNGIiLCJlbWFpbCI6ImFzZWhyaWtAZ21haWwuY29tIiwiaWQiOiIwMTk1ZTExMS05NDQyLTdkNjMtYjIzMS1kZjg1NmIxOGIyNjUiLCJpYXQiOjE3NTA0MTcwNzgsImV4cCI6MTc1MTAyMTg3OH0.Wfubrf8fnt6afo37Yff9Kg92HtNvlULMGDWzapUqfYA',
+          }}
           rel="noopener noreferrer"
           className="ml-4 text-blue-500 hover:underline"
         >
           Test Token
-        </a>
+        </Link>
         <DiscordSignIn className="rounded-md border border-gray-300 p-3" />
       </main>
 
